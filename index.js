@@ -41,9 +41,10 @@ function getPokemon() {
 }
 
 function addPokemon(pokemonObject) {
-  const main = document.querySelector('#main-wrapper')
+  const main = document.querySelector('main')
   const div = document.createElement('div')
 
+  main.className = 'main-wrapper'
   div.className = 'card'
 
   div.addEventListener('mouseenter', () => pokemonInfo(pokemonObject, div))
@@ -53,7 +54,7 @@ function addPokemon(pokemonObject) {
 }
 
 function pokemonInfo(pokemonObject, htmlElement) {
-  console.log(pokemonObject)
+  console.log(pokemonObject.description)
   htmlElement.textContent = "";
   let name = document.createElement("h2");
       name.textContent = pokemonObject.name;
@@ -63,15 +64,7 @@ function pokemonInfo(pokemonObject, htmlElement) {
       ul.className = 'pokemon-info'
 
   let type = document.createElement("li")
-  const pokemonTypes = pokemonObject.pokemon_type.split(" ").filter(el => el != "")
-
-  for (singleType of pokemonTypes) {
-    let button = document.createElement('button')
-        button.textContent = singleType
-        button.className = singleType
-        type.appendChild(button)
-  }
-
+      addPokemonTypes(pokemonObject, type)
 
   let height = document.createElement("li");
       height.textContent = `Height: ${pokemonObject.height}`;
@@ -86,9 +79,36 @@ function pokemonInfo(pokemonObject, htmlElement) {
       showMore.textContent = "Show More"
       showMore.className = 'in-line-buttons'
 
+  showMore.addEventListener('click', () => {
+    showSinglePokemon(pokemonObject)
+  })
+
+  ul.appendChild(type)
+  ul.appendChild(height)
+  ul.appendChild(weight)
+  ul.appendChild(pokedexEntry)
+
+  htmlElement.appendChild(name)
+  htmlElement.appendChild(ul)
+  htmlElement.appendChild(showMore)
+  htmlElement.appendChild(addPokemonToTeam(pokemonObject))
+}
+
+function addPokemonTypes(pokemonObject, htmlElement) {
+  const pokemonTypes = pokemonObject.pokemon_type.split(" ").filter(el => el != "")
+  for (singleType of pokemonTypes) {
+    let button = document.createElement('button')
+        button.textContent = singleType
+        button.className = singleType
+        htmlElement.appendChild(button)
+  }
+  return htmlElement
+}
+
+function addPokemonToTeam(pokemonObject) {
   let addPokemon = document.createElement("select")
   let defaultOption = document.createElement('option')
-      defaultOption.textContent = 'Select a Team'
+      defaultOption.textContent = 'Add to a Team'
       addPokemon.add(defaultOption)
 
   for (team of TEAMS) {
@@ -103,15 +123,35 @@ function pokemonInfo(pokemonObject, htmlElement) {
     createPokemonTeam(pokemonObject, team.id)
   })
 
-  ul.appendChild(type)
-  ul.appendChild(height)
-  ul.appendChild(weight)
-  ul.appendChild(pokedexEntry)
+  return addPokemon
+}
 
-  htmlElement.appendChild(name)
-  htmlElement.appendChild(ul)
-  htmlElement.appendChild(showMore)
-  htmlElement.appendChild(addPokemon)
+function showSinglePokemon(pokemonObject) {
+  const main = document.querySelector('main')
+  const h1 = document.createElement('h1')
+  const img = document.createElement('img')
+  const descLabel = document.createElement('h3')
+  const desc = document.createElement('p')
+  const height = document.createElement('p')
+  const weight = document.createElement('p')
+
+
+  main.textContent = ''
+  main.className = 'show-page'
+  h1.textContent = pokemonObject.name
+  img.src = pokemonObject.img_url
+  descLabel.textContent = "Description:"
+  desc.textContent = pokemonObject.description
+  height.textContent = `Height: ${pokemonObject.height} decimeters`
+  weight.textContent = `Weight: ${pokemonObject.weight} hectograms`
+
+  main.appendChild(h1)
+  main.appendChild(img)
+  main.appendChild(descLabel)
+  main.appendChild(desc)
+  main.appendChild(height)
+  main.appendChild(weight)
+  main.appendChild(addPokemonToTeam(pokemonObject))
 }
 
 function createPokemonTeam(pokemonObject, teamId) {
