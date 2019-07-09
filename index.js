@@ -7,7 +7,10 @@ function getTrainer(id) {
       }
     })
     .then(res => res.json())
-    .then(json => saveTeamInfo(json))
+    .then(json => {
+      saveTeamInfo(json)
+      getNav(json)
+    })
 }
 
 function saveTeamInfo(trainerObject) {
@@ -211,7 +214,7 @@ function displayPokemonImage(pokemonObject, htmlElement) {
 function addTrainerButton() {
   const header = document.querySelector('header')
   const button = document.createElement('button')
-  header.textContent = ''
+  // header.textContent = ''  
   button.textContent = 'Trainer Info'
 
   button.addEventListener('click', () => displayTrainerInfo(1))
@@ -362,7 +365,92 @@ function createNewTeam(htmlElement, trainerObject) {
   })
   .then(res => res.json())
   .then(json => {
+    getNav(trainerObject)
     htmlElement.value = ''
     appendTeam(json, list, main)
   })
+}
+
+function listNavTeams(trainerObject){
+  let teamList = document.getElementById("teams");
+
+  let teams = trainerObject.teams
+
+  for(team of teams) {
+    displayNavTeams(team);
+  }
+}
+
+function displayNavTeams(team){
+  const main = document.querySelector('main')
+  let teamList = document.getElementById("teams");
+    let h4 = document.createElement("h4");
+        h4.textContent = team.name;
+        h4.id = team.id;
+
+        h4.addEventListener("click", () => {
+          closeNav();
+          displayTeamInfo(team, main)
+        })
+
+        h4.addEventListener("mouseenter", () => {
+          let pokemon = team.pokemon;
+          let ul = document.createElement("ul");
+
+          for (poke of pokemon){
+            displayPokemon(poke, ul);
+          }
+          h4.appendChild(ul);
+        })
+
+
+        h4.addEventListener("mouseleave", () => {
+          h4.children[0].remove();
+        })
+
+        teamList.appendChild(h4);
+}
+
+function displayPokemon(pokemonObject, htmlElement){
+    let li = document.createElement("li");
+      li.textContent = pokemonObject.name;
+
+      li.addEventListener("click", () => {
+        closeNav();
+        showSinglePokemon(pokemonObject);
+      })
+    htmlElement.appendChild(li);
+}
+
+function clearNavTeams(trainerObject){
+  let teamList = document.getElementById("teams");
+
+  teamList.textContent = "";
+}
+
+function getNav(trainerObject){
+  clearNavTeams(trainerObject);
+  listNavTeams(trainerObject);
+}
+
+const closeButton = document.querySelector(".closebtn");
+
+  closeButton.addEventListener("click", () => {
+    closeNav();
+  })
+
+  const hamSpan = document.querySelector("#ham-span");
+
+    hamSpan.addEventListener("click", () => {
+      openNav();
+    })
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("hamburger-main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("hamburger-main").style.marginLeft= "0";
 }

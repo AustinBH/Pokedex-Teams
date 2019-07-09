@@ -9,7 +9,7 @@ body {
     height: 120px;
     /* position: fixed; */
     display: block;
-    background-image: url("https://cdn.evbuc.com/eventlogos/180190045/pokemonpokeball.jpg");
+    /* background-image: url("https://cdn.evbuc.com/eventlogos/180190045/pokemonpokeball.jpg"); */
   }
 
   header img {
@@ -105,6 +105,52 @@ body {
     display: block;
   }
 
+  #hamburger-main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav h4 {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav h4:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
   /* Adding all of our pokemon type
   colors here */
 
@@ -175,7 +221,6 @@ body {
     button.dragon  {
       background-color: #53A4CF
     }
-
 
   .in-line-buttons {
     display: flex;
