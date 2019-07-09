@@ -44,9 +44,10 @@ function getPokemon() {
 }
 
 function addPokemon(pokemonObject) {
-  const main = document.querySelector('#main-wrapper')
+  const main = document.querySelector('main')
   const div = document.createElement('div')
 
+  main.className = 'main-wrapper'
   div.className = 'card'
 
   div.addEventListener('mouseenter', () => pokemonInfo(pokemonObject, div))
@@ -56,7 +57,6 @@ function addPokemon(pokemonObject) {
 }
 
 function pokemonInfo(pokemonObject, htmlElement) {
-  console.log(pokemonObject)
   htmlElement.textContent = "";
   let name = document.createElement("h2");
       name.textContent = pokemonObject.name;
@@ -65,8 +65,8 @@ function pokemonInfo(pokemonObject, htmlElement) {
   let ul = document.createElement('ul')
       ul.className = 'pokemon-info'
 
-  let type = document.createElement("li");
-      type.textContent = `Type: ${pokemonObject.pokemon_type}`;
+  let type = document.createElement("li")
+      addPokemonTypes(pokemonObject, type)
 
   let height = document.createElement("li");
       height.textContent = `Height: ${pokemonObject.height}`;
@@ -81,22 +81,8 @@ function pokemonInfo(pokemonObject, htmlElement) {
       showMore.textContent = "Show More"
       showMore.className = 'in-line-buttons'
 
-  let addPokemon = document.createElement("select")
-  let defaultOption = document.createElement('option')
-      defaultOption.textContent = 'Select a Team'
-      addPokemon.add(defaultOption)
-
-  for (team of TEAMS) {
-    let option = document.createElement('option')
-    option.textContent = team.name
-    option.id = team.id
-    addPokemon.appendChild(option)
-  }
-
-  addPokemon.addEventListener('change', () => {
-    const teamName = event.target.value
-    const team = TEAMS.find(team => team.name === teamName)
-    createPokemonTeam(pokemonObject, team.id)
+  showMore.addEventListener('click', () => {
+    showSinglePokemon(pokemonObject)
   })
 
   ul.appendChild(type)
@@ -107,7 +93,82 @@ function pokemonInfo(pokemonObject, htmlElement) {
   htmlElement.appendChild(name)
   htmlElement.appendChild(ul)
   htmlElement.appendChild(showMore)
-  htmlElement.appendChild(addPokemon)
+  htmlElement.appendChild(addPokemonToTeam(pokemonObject))
+}
+
+function addPokemonTypes(pokemonObject, htmlElement) {
+  const pokemonTypes = pokemonObject.pokemon_type.split(" ").filter(el => el != "")
+  for (singleType of pokemonTypes) {
+    let button = document.createElement('button')
+        button.textContent = singleType
+        button.className = singleType
+        htmlElement.appendChild(button)
+  }
+  return htmlElement
+}
+
+function addPokemonToTeam(pokemonObject) {
+  let addPokemon = document.createElement("select")
+  let defaultOption = document.createElement('option')
+      defaultOption.textContent = 'Add to a Team'
+      addPokemon.add(defaultOption)
+
+  for (team of TEAMS) {
+    let option = document.createElement('option')
+    option.textContent = team.name
+    addPokemon.appendChild(option)
+  }
+
+  addPokemon.addEventListener('change', () => {
+    const teamName = event.target.value
+    const team = TEAMS.find(team => team.name === teamName)
+    createPokemonTeam(pokemonObject, team.id)
+  })
+
+  return addPokemon
+}
+
+function showSinglePokemon(pokemonObject) {
+  const main = document.querySelector('main')
+  const pokedexEntry = document.createElement('p')
+  const name = document.createElement('h1')
+  const img = document.createElement('img')
+  const types = document.createElement('ul')
+  const descLabel = document.createElement('h3')
+  const desc = document.createElement('p')
+  const height = document.createElement('p')
+  const weight = document.createElement('p')
+
+  main.textContent = ''
+  main.className = 'show-page'
+  if (pokemonObject.pokedex_number <= 10) {
+      pokedexEntry.textContent = `#00${pokemonObject.pokedex_number}`
+  }
+  else if (pokemonObject.pokedex_number <= 100) {
+    pokedexEntry.textContent = `#0${pokemonObject.pokedex_number}`
+  }
+  else {
+    pokedexEntry.textContent = `#${pokemonObject.pokedex_number}`
+  }
+
+  name.textContent = pokemonObject.name
+  img.src = pokemonObject.img_url
+  descLabel.textContent = "Description:"
+  desc.textContent = pokemonObject.description
+  height.textContent = `Height: ${pokemonObject.height} decimeters`
+  weight.textContent = `Weight: ${pokemonObject.weight} hectograms`
+
+  addPokemonTypes(pokemonObject, types)
+
+  main.appendChild(pokedexEntry)
+  main.appendChild(name)
+  main.appendChild(img)
+  main.appendChild(types)
+  main.appendChild(descLabel)
+  main.appendChild(desc)
+  main.appendChild(height)
+  main.appendChild(weight)
+  main.appendChild(addPokemonToTeam(pokemonObject))
 }
 
 function createPokemonTeam(pokemonObject, teamId) {
@@ -133,7 +194,15 @@ function displayPokemonImage(pokemonObject, htmlElement) {
 
   name.textContent = pokemonObject.name
   name.className = 'front-name'
-  pokedexEntry.textContent = `Pokedex Entry: ${pokemonObject.pokedex_number}`
+  if (pokemonObject.pokedex_number <= 10) {
+      pokedexEntry.textContent = `#00${pokemonObject.pokedex_number}`
+  }
+  else if (pokemonObject.pokedex_number <= 100) {
+    pokedexEntry.textContent = `#0${pokemonObject.pokedex_number}`
+  }
+  else {
+    pokedexEntry.textContent = `#${pokemonObject.pokedex_number}`
+  }
   pokedexEntry.className = 'front-name'
   img.src = pokemonObject.img_url
 
