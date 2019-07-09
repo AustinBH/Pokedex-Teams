@@ -54,7 +54,6 @@ function addPokemon(pokemonObject) {
 }
 
 function pokemonInfo(pokemonObject, htmlElement) {
-  console.log(pokemonObject.description)
   htmlElement.textContent = "";
   let name = document.createElement("h2");
       name.textContent = pokemonObject.name;
@@ -136,8 +135,6 @@ function showSinglePokemon(pokemonObject) {
   const desc = document.createElement('p')
   const height = document.createElement('p')
   const weight = document.createElement('p')
-  const addSelector = addPokemonToTeam(pokemonObject)
-
 
   main.textContent = ''
   main.className = 'show-page'
@@ -157,7 +154,6 @@ function showSinglePokemon(pokemonObject) {
   desc.textContent = pokemonObject.description
   height.textContent = `Height: ${pokemonObject.height} decimeters`
   weight.textContent = `Weight: ${pokemonObject.weight} hectograms`
-  addSelector.style.display = 'inline'
 
   addPokemonTypes(pokemonObject, types)
 
@@ -169,7 +165,7 @@ function showSinglePokemon(pokemonObject) {
   main.appendChild(desc)
   main.appendChild(height)
   main.appendChild(weight)
-  main.appendChild(addSelector)
+  main.appendChild(addPokemonToTeam(pokemonObject))
 }
 
 function createPokemonTeam(pokemonObject, teamId) {
