@@ -99,6 +99,11 @@ body {
     justify-content: center;
   }
 
+  .delete-button {
+    display: inline;
+    margin-left: 20px;
+  }
+
   .pokemon-info {
     text-align: center;
   }
