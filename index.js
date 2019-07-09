@@ -93,6 +93,59 @@ function displayPokemonImage(pokemonObject, htmlElement) {
 
 function addTrainerButton() {
   const header = document.querySelector('header')
-  const menu = document.createElement('nav')
-  header.appendChild(menu)
+  const button = document.createElement('button')
+  header.textContent = ''
+  button.textContent = 'Trainer Info'
+
+  button.addEventListener('click', displayTrainerInfo)
+  header.appendChild(button)
+}
+
+function displayTrainerInfo() {
+  fetch('http://localhost:3000/trainers/4', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then(json => addTrainer(json))
+}
+
+function addTrainer(trainerObject) {
+  const trainerTeams = trainerObject.teams
+  const main = document.querySelector('main')
+  const name = document.createElement('h2')
+  const teams = document.createElement('ul')
+  name.textContent = trainerObject.username
+  teams.textContent = 'Teams:'
+  for (team of trainerTeams) {
+    appendTeam(team, teams, main)
+  }
+  main.textContent = ''
+  main.appendChild(name)
+  main.appendChild(teams)
+}
+
+function appendTeam(teamObject, list, htmlElement) {
+  const teamName = document.createElement('li')
+  teamName.textContent = teamObject.name
+  teamName.addEventListener('click', () => displayTeamInfo(teamObject, htmlElement))
+  list.appendChild(teamName)
+}
+
+function displayTeamInfo(teamObject, htmlElement) {
+  htmlElement.textContent = ''
+
+  const pokemonList = document.createElement('ul')
+  console.log(teamObject)
+  pokemonList.textContent = `${teamObject.name}: `
+  const teamPokemon = teamObject.pokemon
+  for (pokemon of teamPokemon) {
+    let pokemonName = document.createElement('li')
+    pokemonName.textContent = pokemon.name
+    pokemonList.appendChild(pokemonName)
+  }
+  htmlElement.appendChild(pokemonList)
 }
