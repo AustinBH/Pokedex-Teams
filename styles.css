@@ -42,7 +42,7 @@ body {
   }
 
   main.show-page {
-    display:flow-root;
+    display:inline-table;
   }
 
   div.card {
