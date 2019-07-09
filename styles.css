@@ -41,6 +41,10 @@ body {
     background-color: #ffffff;
   }
 
+  main.show-page {
+    display:flow-root;
+  }
+
   div.card {
     background-color: #ececec;
     height: 250px;
