@@ -353,10 +353,6 @@ function displayPokemon(pokemonObject, htmlElement){
     htmlElement.appendChild(li);
 }
 
-// function displaySinglePokemon(pokemonObject, teamObject, list)
-
-// displayTeamInfo(teamObject, htmlElement)
-
 function clearNavTeams(trainerObject){
   let teamList = document.getElementById("teams");
 
@@ -389,40 +385,3 @@ function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
   document.getElementById("hamburger-main").style.marginLeft= "0";
 }
-
-
-// const team1 = document.getElementById("team-1");
-
-//   team1.addEventListener("mouseenter", () => {
-//     dropDown();
-//   })
-
-//   team1.addEventListener("mouseleave", () => {
-//     team1.firstElementChild.remove();
-//   })
-
-
-
-// function dropDown(){
-//     // console.log(team1.children);
-//     let team1 = document.getElementById("team-1");
-//     let ul = document.createElement("ul");
-
-//     let li1 = document.createElement("li");
-//         li1.textContent = "pokemon 1";
-
-//         li1.addEventListener("click", () => {
-//           console.log("take me to the first page!")
-//         })
-    
-//     let li2 = document.createElement("li");
-//         li2.textContent = "pokemon 2";
-        
-//         li2.addEventListener("click", () => {
-//           console.log("take me to the second page!")
-//         })
-
-//     ul.appendChild(li1);
-//     ul.appendChild(li2);
-//     team1.appendChild(ul);
-// }
