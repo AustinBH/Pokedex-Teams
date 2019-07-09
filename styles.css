@@ -91,8 +91,87 @@ body {
     border-radius: 20px;
     margin-left: auto;
     margin-right: auto;
+    display: inline;
+  }
+
+  select {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 3px;
     display: block;
   }
+
+  /* Adding all of our pokemon type
+  colors here */
+
+    button.poison {
+      background-color: #B97FC9
+    }
+
+    button.grass {
+      background-color: #9BCC50
+    }
+
+    button.fire {
+      background-color: #FD7D24
+    }
+
+    button.flying {
+      background-color: #3DC7EF
+    }
+
+    button.water {
+      background-color: #4592C4
+    }
+
+    button.bug {
+      background-color: #729F3F
+    }
+
+    button.normal {
+      background-color: #A4ACAF
+    }
+
+    button.electric {
+      background-color: #EED535
+    }
+
+    button.ground {
+      background-color: #B5651D
+    }
+
+    button.fairy {
+      background-color: #FDB9E9
+    }
+
+    button.fighting {
+      background-color: #D56723
+    }
+
+    button.psychic {
+      background-color: #F366B9
+    }
+
+    button.steel {
+      background-color: #9EB7B8
+    }
+
+    button.ice {
+      background-color: #51C4E7
+    }
+
+    button.ghost {
+      background-color: #7B62A3
+    }
+
+    button.rock {
+      background-color: #A38C21
+    }
+
+    button.dragon  {
+      background-color: #53A4CF
+    }
+
 
   .in-line-buttons {
     display: flex;
