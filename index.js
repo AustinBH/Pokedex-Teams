@@ -62,8 +62,16 @@ function pokemonInfo(pokemonObject, htmlElement) {
   let ul = document.createElement('ul')
       ul.className = 'pokemon-info'
 
-  let type = document.createElement("li");
-      type.textContent = `Type: ${pokemonObject.pokemon_type}`;
+  let type = document.createElement("li")
+  const pokemonTypes = pokemonObject.pokemon_type.split(" ").filter(el => el != "")
+
+  for (singleType of pokemonTypes) {
+    let button = document.createElement('button')
+        button.textContent = singleType
+        button.className = singleType
+        type.appendChild(button)
+  }
+
 
   let height = document.createElement("li");
       height.textContent = `Height: ${pokemonObject.height}`;
@@ -86,7 +94,6 @@ function pokemonInfo(pokemonObject, htmlElement) {
   for (team of TEAMS) {
     let option = document.createElement('option')
     option.textContent = team.name
-    option.id = team.id
     addPokemon.appendChild(option)
   }
 
