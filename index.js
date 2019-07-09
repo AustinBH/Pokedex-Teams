@@ -53,6 +53,7 @@ function addPokemon(pokemonObject) {
 }
 
 function pokemonInfo(pokemonObject, htmlElement) {
+  console.log(pokemonObject)
   htmlElement.textContent = "";
   let name = document.createElement("h2");
       name.textContent = pokemonObject.name;
@@ -60,9 +61,6 @@ function pokemonInfo(pokemonObject, htmlElement) {
 
   let ul = document.createElement('ul')
       ul.className = 'pokemon-info'
-
-  let desc = document.createElement("li");
-      desc.textContent = `Description: ${pokemonObject.description}`;
 
   let type = document.createElement("li");
       type.textContent = `Type: ${pokemonObject.pokemon_type}`;
