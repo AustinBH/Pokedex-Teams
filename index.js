@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   getPokemon()
   addTrainerButton()
+  addBackButton()
+
 })
 
 function getPokemon() {
+  const main = document.querySelector('#main-wrapper')
+  main.textContent = ''
   fetch('http:localhost:3000/pokemon', {
     method: 'GET',
     headers: {
@@ -15,7 +19,6 @@ function getPokemon() {
   .then(json => {
     for (pokemon of json)
     addPokemon(pokemon)
-    console.log(json)
   })
 }
 
@@ -139,7 +142,6 @@ function displayTeamInfo(teamObject, htmlElement) {
   htmlElement.textContent = ''
 
   const pokemonList = document.createElement('ul')
-  console.log(teamObject)
   pokemonList.textContent = `${teamObject.name}: `
   const teamPokemon = teamObject.pokemon
   for (pokemon of teamPokemon) {
@@ -148,4 +150,14 @@ function displayTeamInfo(teamObject, htmlElement) {
     pokemonList.appendChild(pokemonName)
   }
   htmlElement.appendChild(pokemonList)
+}
+
+function addBackButton() {
+  const main = document.querySelector('#main-wrapper')
+  const header = document.querySelector('header')
+  const button = document.createElement('button')
+  button.textContent = 'Go Back'
+
+  button.addEventListener('click', getPokemon)
+  header.appendChild(button)
 }
