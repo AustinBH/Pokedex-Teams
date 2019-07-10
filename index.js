@@ -22,10 +22,12 @@ function loginPage() {
   const main = document.querySelector('main')
   main.textContent = ''
   const form1 = document.createElement('form')
+  const header1 = document.createElement('h2')
   const label1 = document.createElement('label')
   const input1 = document.createElement('input')
   const input2 = document.createElement('input')
   const form2 = document.createElement('form')
+  const header2 = document.createElement('h2')
   const label2 = document.createElement('label')
   const input3 = document.createElement('input')
   const input4 = document.createElement('input')
@@ -36,29 +38,41 @@ function loginPage() {
   ham.className = 'hidden'
   nav.className = 'hidden'
 
-  label1.textContent = 'Username'
+  main.className = 'login'
+
+  form1.className = 'login'
+  form2.className = 'signup'
+  header1.textContent = 'Login'
+  label1.textContent = 'Username: '
   input1.setAttribute('type', 'text')
   input2.setAttribute('type', 'submit')
   input2.value = 'Login'
-  label2.textContent = 'Username'
+  input2.className = 'submit'
+  header2.textContent = 'Signup'
+  label2.textContent = 'Username: '
   input3.setAttribute('type', 'text')
   input4.setAttribute('type', 'submit')
   input4.value = 'Signup'
+  input4.className = 'submit'
 
   form1.addEventListener('submit', () => {
     event.preventDefault()
     // console.log(event.target[0].value)
     trainerLogin(event.target[0].value)
+    main.className = ''
   })
 
   form2.addEventListener('submit', () => {
     event.preventDefault()
     trainerSignup(event.target[0].value)
+    main.className = ''
   })
 
+  form1.appendChild(header1)
   form1.appendChild(label1)
   form1.appendChild(input1)
   form1.appendChild(input2)
+  form2.appendChild(header2)
   form2.appendChild(label2)
   form2.appendChild(input3)
   form2.appendChild(input4)
@@ -111,23 +125,25 @@ function trainerSignup(username) {
 }
 
 function login(trainerObject) {
-  const p = document.querySelector('p')
-  p.addEventListener('click', () => {
-    closeNav()
-    displayTrainerInfo()
-  })
 
   localStorage.setItem('trainer_id', trainerObject.id)
   TRAINER_ID = trainerObject.id
 
   getTrainer(TRAINER_ID)
   getPokemon()
-  addLogoutButton()
   addBackButton()
+  addLogoutButton()
+
+  const p = document.querySelector('p')
+  p.addEventListener('click', () => {
+    closeNav()
+    displayTrainerInfo()
+  })
 }
 
 function addLogoutButton() {
   const header = document.querySelector('header')
+  const goBack = document.querySelector('button')
   const a = document.createElement('a')
   a.textContent = 'Logout'
   a.className = 'logout'
@@ -135,9 +151,10 @@ function addLogoutButton() {
   header.appendChild(a)
 
   a.addEventListener('click', () => {
+    header.removeChild(goBack)
+    header.removeChild(a)
     localStorage.clear()
     loginPage()
-    header.textContent = ''
   })
 }
 
