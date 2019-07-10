@@ -149,6 +149,10 @@ function login(trainerObject) {
         getPokemon()
         getTrainer(TRAINER_ID)
       })
+
+      const searchForm = document.createElement("form");
+      const typeInput = document.createElement("input");
+      const typeSubmit = document.createElement("submit");
         
 
   localStorage.setItem('trainer_id', trainerObject.id)
