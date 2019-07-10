@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #4caf50;
   }
 
   header {
@@ -20,6 +21,7 @@ body {
     display: block;
     grid-area: 1 / 2 / span 2 / span 1;
     /* width: 400px; */
+    z-index: 6;
   }
 
   img.login {
@@ -44,7 +46,7 @@ body {
     padding-bottom: 30px;
     padding-left: 8px;
     padding-right: 8px;
-    background-color: #ffffff;
+    background-color: #4caf50;
   }
 
   main.show-page {
@@ -52,10 +54,10 @@ body {
   }
 
   div.card {
-    background-color: #ececec;
+    background-color: rgb(236, 253, 255);
     height: 250px;
     width: 300px;
-    box-shadow: 0px 0px 8px 7px grey;
+    box-shadow: 0px 0px 8px 7px rgb(255,198,3);
     padding: 10px;
     margin-left: auto;
     margin-right: auto;
@@ -195,8 +197,8 @@ body {
   }
 
   input.submit {
-    color: #fff;
-    background-color: #228B22;
+    background-color: rgb(46, 96, 180);
+    color: rgb(255,198,3);
     border-radius: 20px;
     margin-left: auto;
     margin-right: auto;
@@ -211,6 +213,7 @@ body {
     grid-area: 1 / 4 / span 1 / span 1;
     height: 40px;
     background-color: rgb(46, 96, 180);
+    color: rgb(255,198,3);
   }
 
   .hidden {
