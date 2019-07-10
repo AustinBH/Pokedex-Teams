@@ -114,6 +114,7 @@ function addPokemonTypes(pokemonObject, htmlElement) {
 function addPokemonToTeam(pokemonObject) {
   let addPokemon = document.createElement("select")
   let defaultOption = document.createElement('option')
+  const main = document.querySelector('main')
       defaultOption.textContent = 'Add to a Team'
       addPokemon.add(defaultOption)
 
@@ -127,6 +128,7 @@ function addPokemonToTeam(pokemonObject) {
     const teamName = event.target.value
     const team = TEAMS.find(team => team.name === teamName)
     createPokemonTeam(pokemonObject, team.id)
+    getTrainer(TRAINER_ID.slice(-1))
   })
 
   return addPokemon
@@ -309,6 +311,7 @@ function displaySinglePokemon(pokemonObject, teamObject, list) {
 
   button.addEventListener('click', () => {
     deletePokemonFromTeam(pokemonObject, teamObject, li)
+    getTrainer(TRAINER_ID.slice(-1))
   })
 
   li.appendChild(pokemonName)
