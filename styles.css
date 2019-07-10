@@ -141,6 +141,10 @@ body {
   .sidenav span:hover {
     color: #f1f1f1;
   }
+
+  .sidenav li:hover {
+    color: #f1f1f1;
+  }
   .sidenav .closebtn {
     position: absolute;
     top: 0;

@@ -266,7 +266,6 @@ function addPokemonToTeam(pokemonObject) {
     }
     else {
       createPokemonTeam(pokemonObject, team.id)
-      getTrainer(TRAINER_ID)
     }
   })
   return addPokemon
@@ -339,7 +338,10 @@ function createPokemonTeam(pokemonObject, teamId) {
       pokemon_id: pokemonObject.id
     })
   })
-  .then(displayErrorMessage(`${pokemonObject.name} added!`))
+  .then(() => {
+    displayErrorMessage(`${pokemonObject.name} added!`)
+    getTrainer(TRAINER_ID)
+  })
 }
 
 function displayPokemonImage(pokemonObject, htmlElement) {
@@ -518,6 +520,7 @@ function createNewTeam(htmlElement, trainerObject) {
     getNav(trainerObject)
     htmlElement.value = ''
     appendTeam(json, list, main)
+    getTrainer(TRAINER_ID)
   })
 }
 
