@@ -149,6 +149,16 @@ body {
     margin-left: 50px;
   }
 
+  .logout {
+    float: right;
+    margin: 20px;
+    display: block;
+  }
+
+  .hidden {
+    display: none;
+  }
+
   /* Adding all of our pokemon type
   colors here */
 
