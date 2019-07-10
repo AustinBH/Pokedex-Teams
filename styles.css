@@ -9,7 +9,7 @@ body {
     height: 120px;
     /* position: fixed; */
     display: block;
-    background-image: url("https://cdn.evbuc.com/eventlogos/180190045/pokemonpokeball.jpg");
+    /* background-image: url("https://cdn.evbuc.com/eventlogos/180190045/pokemonpokeball.jpg"); */
   }
 
   header img {
@@ -39,6 +39,10 @@ body {
     padding-left: 8px;
     padding-right: 8px;
     background-color: #ffffff;
+  }
+
+  main.show-page {
+    display: inline-table;
   }
 
   div.card {
@@ -91,7 +95,197 @@ body {
     border-radius: 20px;
     margin-left: auto;
     margin-right: auto;
+    display: inline;
+  }
+
+  select {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 3px;
     display: block;
+  }
+
+  #hamburger-main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav h4 {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  .sidenav span:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav li:hover {
+    color: #f1f1f1;
+  }
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  main.login {
+    display: grid;
+
+  }
+
+  form.signup {
+    margin: 0 auto;
+    width: 80%;
+    font-size: 16px;
+    grid-area: 1 / 1 / span 1 / span 2;
+    display: block;
+  }
+
+  form.login {
+    margin: 0 auto;
+    width: 80%;
+    font-size: 16px;
+    grid-area: 1 / 3 / span 1 / span 2;
+    display: block;
+  }
+
+  form, h2 {
+    text-align: center;
+  }
+
+  input.submit {
+    color: #fff;
+    background-color: #228B22;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline;
+    height: 25px;
+    width: 100px;
+  }
+
+  .logout {
+    float: right;
+    margin: 20px;
+    display: block;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  /* Adding all of our pokemon type
+  colors here */
+
+    button.poison {
+      background-color: #B97FC9
+    }
+
+    button.grass {
+      background-color: #9BCC50
+    }
+
+    button.fire {
+      background-color: #FD7D24
+    }
+
+    button.flying {
+      background-color: #3DC7EF
+    }
+
+    button.water {
+      background-color: #4592C4
+    }
+
+    button.bug {
+      background-color: #729F3F
+    }
+
+    button.normal {
+      background-color: #A4ACAF
+    }
+
+    button.electric {
+      background-color: #EED535
+    }
+
+    button.ground {
+      background-color: #B5651D
+    }
+
+    button.fairy {
+      background-color: #FDB9E9
+    }
+
+    button.fighting {
+      background-color: #D56723
+    }
+
+    button.psychic {
+      background-color: #F366B9
+    }
+
+    button.steel {
+      background-color: #9EB7B8
+    }
+
+    button.ice {
+      background-color: #51C4E7
+    }
+
+    button.ghost {
+      background-color: #7B62A3
+    }
+
+    button.rock {
+      background-color: #A38C21
+    }
+
+    button.dragon  {
+      background-color: #53A4CF
+    }
+
+  #error-wrapper {
+    text-align: center;
+  }
+
+  .error-message {
+    background-color: #EA5737;
+    display: inline-block;
+    border-radius: 40px;
+  }
+
+  #error-holder {
+    color: white;
+    text-align: center;
+    max-width: 500px;
+    margin-left: 50px;
+    margin-right: 50px;
   }
 
   .in-line-buttons {
