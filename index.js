@@ -19,8 +19,22 @@ function saveTeamInfo(trainerObject) {
 }
 
 function loginPage() {
+  const head = document.querySelector("header");
+
+
   const main = document.querySelector('main')
   main.textContent = ''
+
+  const img = document.querySelector("img");
+      img.parentNode.removeChild(img);
+
+      const newImage = document.createElement("img");
+        newImage.src = "https://fontmeme.com/permalink/190710/f87c04db0b54e3b89caa3d1d3ee405fb.png"
+        newImage.id = "header-img"
+        newImage.className = "login"
+
+        head.appendChild(newImage);
+      // img.removeEventListener("click", false)
   const form1 = document.createElement('form')
   const header1 = document.createElement('h2')
   const label1 = document.createElement('label')
@@ -94,11 +108,12 @@ function trainerLogin(username) {
       return el.username.toLowerCase() === username.toLowerCase()
     })
     if (user) {
-      login(user)
+        login(user) 
     }
     else {
       displayErrorMessage("We could not find a trainer with that username!")
       loginPage()
+
     }
   })
 }
@@ -128,12 +143,20 @@ function trainerSignup(username) {
 
 function login(trainerObject) {
 
+  const img = document.querySelector("img");
+      img.className = ""
+      img.addEventListener('click', () => {
+        getPokemon()
+        getTrainer(TRAINER_ID)
+      })
+        
+
   localStorage.setItem('trainer_id', trainerObject.id)
   TRAINER_ID = trainerObject.id
 
   getTrainer(TRAINER_ID)
   getPokemon()
-  addBackButton()
+  // addBackButton()
   addLogoutButton()
 
   const p = document.querySelector('p')
@@ -145,16 +168,16 @@ function login(trainerObject) {
 
 function addLogoutButton() {
   const header = document.querySelector('header')
-  const goBack = document.querySelector('button')
-  const a = document.createElement('a')
-  a.textContent = 'Logout'
-  a.className = 'logout'
+  // const goBack = document.querySelector('button')
+  const button = document.createElement("button")
+  button.textContent = 'Logout'
+  button.className = 'logout'
 
-  header.appendChild(a)
+  header.appendChild(button)
 
-  a.addEventListener('click', () => {
-    header.removeChild(goBack)
-    header.removeChild(a)
+  button.addEventListener('click', () => {
+    // header.removeChild(goBack)
+    header.removeChild(button)
     localStorage.clear()
     loginPage()
   })
@@ -488,18 +511,15 @@ function deleteTeam(teamObject, htmlElement) {
   .then(htmlElement.parentNode.removeChild(htmlElement))
 }
 
-function addBackButton() {
-  const main = document.querySelector('#main-wrapper')
-  const header = document.querySelector('header')
-  const button = document.createElement('button')
-  button.textContent = 'Go Back'
+// function addBackButton() {
+//   const main = document.querySelector('#main-wrapper')
+//   const header = document.querySelector('header')
+//   const button = document.createElement('button')
+//   button.textContent = 'Go Back'
 
-  button.addEventListener('click', () => {
-    getPokemon()
-    getTrainer(TRAINER_ID)
-  })
-  header.appendChild(button)
-}
+//   
+//   header.appendChild(button)
+// }
 
 function createNewTeam(htmlElement, trainerObject) {
   const main = document.querySelector('main')
@@ -544,6 +564,14 @@ function displayNavTeams(team){
         h4.id = team.id;
         h4.appendChild(span)
 
+
+    let deleteFromNav = document.createElement("span")
+        deleteFromNav.textContent = "×"
+        deleteFromNav.id = "delete-nav"
+        h4.appendChild(deleteFromNav)
+
+        
+
         span.addEventListener("click", () => {
           closeNav();
           displayTeamInfo(team, main)
@@ -561,10 +589,16 @@ function displayNavTeams(team){
 
 
         h4.addEventListener("mouseleave", () => {
-          h4.children[1].remove();
+          h4.children[2].remove();
         })
 
+        
+
         teamList.appendChild(h4);
+
+        deleteFromNav.addEventListener("click", () => {
+          deleteTeam(team, h4)
+        })
 }
 
 function displayPokemon(pokemonObject, htmlElement){
