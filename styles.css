@@ -141,6 +141,10 @@ body {
   .sidenav span:hover {
     color: #f1f1f1;
   }
+
+  .sidenav li:hover {
+    color: #f1f1f1;
+  }
   .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -265,6 +269,24 @@ body {
     button.dragon  {
       background-color: #53A4CF
     }
+
+  #error-wrapper {
+    text-align: center;
+  }
+
+  .error-message {
+    background-color: #EA5737;
+    display: inline-block;
+    border-radius: 40px;
+  }
+
+  #error-holder {
+    color: white;
+    text-align: center;
+    max-width: 500px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
 
   .in-line-buttons {
     display: flex;

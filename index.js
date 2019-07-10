@@ -97,6 +97,7 @@ function trainerLogin(username) {
       login(user)
     }
     else {
+      displayErrorMessage("We could not find a trainer with that username!")
       loginPage()
     }
   })
@@ -119,6 +120,7 @@ function trainerSignup(username) {
       login(json)
     }
     else {
+      displayErrorMessage("That username is already taken!")
       loginPage()
     }
   })
@@ -259,11 +261,26 @@ function addPokemonToTeam(pokemonObject) {
   addPokemon.addEventListener('change', () => {
     const teamName = event.target.value
     const team = TEAMS.find(team => team.name === teamName)
-    createPokemonTeam(pokemonObject, team.id)
-    getTrainer(TRAINER_ID)
+    if (team.pokemon.length > 5) {
+      displayErrorMessage("Your team is full, please remove a pokemon before adding a new one!")
+    }
+    else {
+      createPokemonTeam(pokemonObject, team.id)
+    }
   })
-
   return addPokemon
+}
+
+function displayErrorMessage(message) {
+  const errorWrapper = document.querySelector('#error-wrapper')
+  const errorField = document.querySelector('#error-holder')
+  errorField.textContent = message
+  errorWrapper.className = ''
+
+  setTimeout(() => {
+    errorField.textContent = ''
+    errorWrapper.className = 'hidden'
+  }, 3000)
 }
 
 function showSinglePokemon(pokemonObject) {
@@ -321,7 +338,10 @@ function createPokemonTeam(pokemonObject, teamId) {
       pokemon_id: pokemonObject.id
     })
   })
-  .then(alert(`${pokemonObject.name} added!`))
+  .then(() => {
+    displayErrorMessage(`${pokemonObject.name} added!`)
+    getTrainer(TRAINER_ID)
+  })
 }
 
 function displayPokemonImage(pokemonObject, htmlElement) {
@@ -348,15 +368,6 @@ function displayPokemonImage(pokemonObject, htmlElement) {
   htmlElement.appendChild(img)
   htmlElement.appendChild(pokedexEntry)
 }
-
-// function addTrainerButton(htmlElement) {
-//   const button = document.createElement('button')
-//   // header.textContent = ''
-//   button.textContent = 'Trainer Info'
-//
-//   button.addEventListener('click', () => displayTrainerInfo())
-//   htmlElement.appendChild(button)
-// }
 
 function displayTrainerInfo() {
   fetch(`http://localhost:3000/trainers/${TRAINER_ID}`, {
@@ -509,6 +520,7 @@ function createNewTeam(htmlElement, trainerObject) {
     getNav(trainerObject)
     htmlElement.value = ''
     appendTeam(json, list, main)
+    getTrainer(TRAINER_ID)
   })
 }
 
