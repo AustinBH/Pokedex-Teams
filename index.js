@@ -22,8 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
   TRAINER_ID = document.cookie = 'trainer_id=4'
   getTrainer(TRAINER_ID.slice(-1))
   getPokemon()
-  addTrainerButton()
   addBackButton()
+  const p = document.querySelector('p')
+  p.addEventListener('click', () => {
+    closeNav()
+    displayTrainerInfo()
+  })
 })
 
 function getPokemon() {
@@ -211,15 +215,14 @@ function displayPokemonImage(pokemonObject, htmlElement) {
   htmlElement.appendChild(pokedexEntry)
 }
 
-function addTrainerButton() {
-  const header = document.querySelector('header')
-  const button = document.createElement('button')
-  // header.textContent = ''  
-  button.textContent = 'Trainer Info'
-
-  button.addEventListener('click', () => displayTrainerInfo(1))
-  header.appendChild(button)
-}
+// function addTrainerButton(htmlElement) {
+//   const button = document.createElement('button')
+//   // header.textContent = ''
+//   button.textContent = 'Trainer Info'
+//
+//   button.addEventListener('click', () => displayTrainerInfo())
+//   htmlElement.appendChild(button)
+// }
 
 function displayTrainerInfo() {
   fetch(`http://localhost:3000/trainers/${TRAINER_ID.slice(-1)}`, {
@@ -230,7 +233,10 @@ function displayTrainerInfo() {
     }
   })
   .then(res => res.json())
-  .then(json => addTrainer(json))
+  .then(json => {
+    console.log(json)
+    addTrainer(json)
+  })
 }
 
 function addTrainer(trainerObject) {
@@ -383,12 +389,15 @@ function listNavTeams(trainerObject){
 
 function displayNavTeams(team){
   const main = document.querySelector('main')
+
   let teamList = document.getElementById("teams");
     let h4 = document.createElement("h4");
-        h4.textContent = team.name;
+    let span = document.createElement('span')
+        span.textContent = team.name;
         h4.id = team.id;
+        h4.appendChild(span)
 
-        h4.addEventListener("click", () => {
+        span.addEventListener("click", () => {
           closeNav();
           displayTeamInfo(team, main)
         })
@@ -405,7 +414,7 @@ function displayNavTeams(team){
 
 
         h4.addEventListener("mouseleave", () => {
-          h4.children[0].remove();
+          h4.children[1].remove();
         })
 
         teamList.appendChild(h4);
