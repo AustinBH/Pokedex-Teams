@@ -115,7 +115,7 @@ function trainerSignup(username) {
   })
   .then(res => res.json())
   .then(json => {
-    if (!!json.message) {
+    if (!json.message) {
       login(json)
     }
     else {
