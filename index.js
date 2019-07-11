@@ -142,6 +142,7 @@ function login(trainerObject) {
   const typeSubmit = document.createElement("input");
 
     img.className = ""
+    img.style.cursor = 'pointer'
     img.addEventListener('click', () => {
       getPokemon()
       getTrainer(TRAINER_ID)
@@ -351,6 +352,7 @@ function displayErrorMessage(message) {
 
 function showSinglePokemon(pokemonObject) {
   const main = document.querySelector('main')
+  const showDiv = document.createElement('div')
   const pokedexEntry = document.createElement('p')
   const name = document.createElement('h1')
   const img = document.createElement('img')
@@ -359,6 +361,7 @@ function showSinglePokemon(pokemonObject) {
   const desc = document.createElement('p')
   const height = document.createElement('p')
   const weight = document.createElement('p')
+  const addToTeam = addPokemonToTeam(pokemonObject)
 
   main.textContent = ''
   main.className = 'show-page'
@@ -372,6 +375,16 @@ function showSinglePokemon(pokemonObject) {
     pokedexEntry.textContent = `#${pokemonObject.pokedex_number}`
   }
 
+  showDiv.className = 'show-div'
+  pokedexEntry.className = 'show'
+  name.className = 'show'
+  img.className = 'show'
+  types.className = 'show'
+  descLabel.className = 'show'
+  height.className = 'show-data'
+  weight.className = 'show-data'
+  addToTeam.className = 'show'
+
   name.textContent = pokemonObject.name
   img.src = pokemonObject.img_url
   descLabel.textContent = "Description:"
@@ -381,15 +394,16 @@ function showSinglePokemon(pokemonObject) {
 
   addPokemonTypes(pokemonObject, types)
 
-  main.appendChild(pokedexEntry)
-  main.appendChild(name)
-  main.appendChild(img)
-  main.appendChild(types)
-  main.appendChild(descLabel)
-  main.appendChild(desc)
-  main.appendChild(height)
-  main.appendChild(weight)
-  main.appendChild(addPokemonToTeam(pokemonObject))
+  showDiv.appendChild(pokedexEntry)
+  showDiv.appendChild(name)
+  showDiv.appendChild(img)
+  showDiv.appendChild(types)
+  showDiv.appendChild(height)
+  showDiv.appendChild(weight)
+  showDiv.appendChild(descLabel)
+  showDiv.appendChild(desc)
+  showDiv.appendChild(addToTeam)
+  main.appendChild(showDiv)
 }
 
 function createPokemonTeam(pokemonObject, teamId) {
