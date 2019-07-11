@@ -437,17 +437,26 @@ body {
     .trainer {
       display: none;
     }
+    div.login {
+      grid-area: 1 / 1 / span 1 / span 1;
+    }
   }
 
   @media only screen and (min-width: 670px) and (max-width: 999px) {
     main {
       grid-template-columns: 1fr 1fr;
     }
+    div.login {
+      grid-area: 1 / 1 / span 1 / span 2;
+    }
   }
 
   @media only screen and (max-width: 1350px) and (min-width: 999px) {
     main{
       grid-template-columns: 1fr 1fr 1fr;
+    }
+    div.login {
+      grid-area: 1 / 1 / span 1 / span 3;
     }
   }
 
