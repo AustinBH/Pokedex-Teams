@@ -20,22 +20,22 @@ function saveTeamInfo(trainerObject) {
 
 function loginPage() {
   const head = document.querySelector("header");
-
-
-
   const main = document.querySelector('main')
-  main.textContent = ''
-
   const img = document.querySelector("img");
-      img.parentNode.removeChild(img);
+  const newImage = document.createElement("img");
+  const ham = document.querySelector('#hamburger-main')
+  const nav = document.querySelector('#mySidenav')
 
-      const newImage = document.createElement("img");
-        newImage.src = "https://fontmeme.com/permalink/190710/f87c04db0b54e3b89caa3d1d3ee405fb.png"
-        newImage.id = "header-img"
-        newImage.className = "login"
+    main.textContent = ''
+    main.className = 'login'
+    img.parentNode.removeChild(img);
+    newImage.src = "https://fontmeme.com/permalink/190710/f87c04db0b54e3b89caa3d1d3ee405fb.png"
+    newImage.id = "header-img"
+    newImage.className = "login"
+    ham.className = 'hidden'
+    nav.className = 'hidden'
+    head.appendChild(newImage);
 
-        head.appendChild(newImage);
-      // img.removeEventListener("click", false)
   const form1 = document.createElement('form')
   const header1 = document.createElement('h2')
   const label1 = document.createElement('label')
@@ -46,14 +46,6 @@ function loginPage() {
   const label2 = document.createElement('label')
   const input3 = document.createElement('input')
   const input4 = document.createElement('input')
-
-  const ham = document.querySelector('#hamburger-main')
-  const nav = document.querySelector('#mySidenav')
-
-  ham.className = 'hidden'
-  nav.className = 'hidden'
-
-  main.className = 'login'
 
   form1.className = 'login'
   form2.className = 'signup'
@@ -72,7 +64,6 @@ function loginPage() {
 
   form1.addEventListener('submit', () => {
     event.preventDefault()
-    // console.log(event.target[0].value)
     trainerLogin(event.target[0].value)
     main.className = ''
   })
@@ -114,7 +105,6 @@ function trainerLogin(username) {
     else {
       displayErrorMessage("We could not find a trainer with that username!")
       loginPage()
-
     }
   })
 }
@@ -144,49 +134,49 @@ function trainerSignup(username) {
 
 function login(trainerObject) {
   const head = document.querySelector("header");
-
   const img = document.querySelector("img");
-      img.className = ""
-      img.addEventListener('click', () => {
-        getPokemon()
-        getTrainer(TRAINER_ID)
-      })
-      const searchLabel = document.createElement("span");
-        searchLabel.className = "trainer"
-        searchLabel.textContent = "Search By Name"
-      const searchForm = document.createElement("form");
-        searchForm.id = "search"
-      const typeInput = document.createElement("input");
-        typeInput.setAttribute("onfocus", "this.value=''")
-        typeInput.value = "Search By Name"
-        typeInput.setAttribute("type", "text")
+  const trainerName = document.querySelector('#trainer-name')
+  const searchLabel = document.createElement("span");
+  const searchForm = document.createElement("form");
+  const typeInput = document.createElement("input");
+  const typeSubmit = document.createElement("input");
 
-      const typeSubmit = document.createElement("input");
-        typeSubmit.setAttribute("type", "submit")
-        typeSubmit.setAttribute("value", "Search")
-      searchForm.appendChild(searchLabel);
-      searchForm.appendChild(typeInput);
-      searchForm.appendChild(typeSubmit);
+    img.className = ""
+    img.addEventListener('click', () => {
+      getPokemon()
+      getTrainer(TRAINER_ID)
+    })
 
-      searchForm.addEventListener("submit", () => {
-        event.preventDefault()
-        let input = `?name=${event.target[0].value}`
-        getPokemon(input)
-        searchForm.reset();
-      })
-      let spaceHolder = document.createElement("span");
-        spaceHolder.id = "space-holder"
+    trainerName.textContent = trainerObject.username
+    searchLabel.className = "trainer"
+    searchLabel.textContent = "Search By Name"
+    searchForm.id = "search"
+    typeInput.setAttribute("onfocus", "this.value=''")
+    typeInput.value = "Search By Name"
+    typeInput.setAttribute("type", "text")
+    typeSubmit.setAttribute("type", "submit")
+    typeSubmit.setAttribute("value", "Search")
+    searchForm.appendChild(searchLabel);
+    searchForm.appendChild(typeInput);
+    searchForm.appendChild(typeSubmit);
 
-      head.appendChild(spaceHolder);
-      head.appendChild(searchForm);
+    searchForm.addEventListener("submit", () => {
+      event.preventDefault()
+      let input = `?name=${event.target[0].value}`
+      getPokemon(input)
+      searchForm.reset();
+    })
 
+  let spaceHolder = document.createElement("span");
+    spaceHolder.id = "space-holder"
+    head.appendChild(spaceHolder);
+    head.appendChild(searchForm);
 
   localStorage.setItem('trainer_id', trainerObject.id)
   TRAINER_ID = trainerObject.id
 
   getTrainer(TRAINER_ID)
   getPokemon()
-  // addBackButton()
   addLogoutButton()
 
   const p = document.querySelector('p')
@@ -200,15 +190,13 @@ function addLogoutButton() {
   const header = document.querySelector('header')
   const search = document.getElementById("search")
   const spaceHolder = document.getElementById("space-holder")
-  // const goBack = document.querySelector('button')
   const button = document.createElement("button")
+
   button.textContent = 'Logout'
   button.className = 'logout'
-
   header.appendChild(button)
 
   button.addEventListener('click', () => {
-    // header.removeChild(goBack)
     header.removeChild(button)
     header.removeChild(spaceHolder);
     header.removeChild(search)
@@ -339,14 +327,25 @@ function addPokemonToTeam(pokemonObject) {
 }
 
 function displayErrorMessage(message) {
-  const errorWrapper = document.querySelector('#error-wrapper')
-  const errorField = document.querySelector('#error-holder')
+  const errorWrapper = document.querySelector('#error-modal')
+  const errorField = document.querySelector('#modal-message')
+  const close = document.querySelector('.close')
   errorField.textContent = message
-  errorWrapper.className = ''
+  errorWrapper.style.display = 'block'
+
+  close.onclick = () => {
+    errorWrapper.style.display = 'none'
+  }
+
+  window.onclick = function(event) {
+    if (event.target == errorWrapper) {
+      errorWrapper.style.display = 'none'
+    }
+  }
 
   setTimeout(() => {
     errorField.textContent = ''
-    errorWrapper.className = 'hidden'
+    errorWrapper.style.display = 'none'
   }, 3000)
 }
 
@@ -446,7 +445,6 @@ function displayTrainerInfo() {
   })
   .then(res => res.json())
   .then(json => {
-    console.log(json)
     addTrainer(json)
   })
 }
@@ -460,6 +458,7 @@ function addTrainer(trainerObject) {
   const form = document.createElement('form')
   const input1 = document.createElement('input')
   const input2 = document.createElement('input')
+
   name.textContent = trainerObject.username
   teams.textContent = 'Teams:'
   input1.setAttribute('type', 'text')
@@ -555,16 +554,6 @@ function deleteTeam(teamObject, htmlElement) {
   .then(htmlElement.parentNode.removeChild(htmlElement))
 }
 
-// function addBackButton() {
-//   const main = document.querySelector('#main-wrapper')
-//   const header = document.querySelector('header')
-//   const button = document.createElement('button')
-//   button.textContent = 'Go Back'
-
-//
-//   header.appendChild(button)
-// }
-
 function createNewTeam(htmlElement, trainerObject) {
   const main = document.querySelector('main')
   const list = document.querySelector('ul')
@@ -608,13 +597,10 @@ function displayNavTeams(team){
         h4.id = team.id;
         h4.appendChild(span)
 
-
     let deleteFromNav = document.createElement("span")
         deleteFromNav.textContent = "×"
         deleteFromNav.id = "delete-nav"
         h4.appendChild(deleteFromNav)
-
-
 
         span.addEventListener("click", () => {
           closeNav();
@@ -631,12 +617,9 @@ function displayNavTeams(team){
           h4.appendChild(ul);
         })
 
-
         h4.addEventListener("mouseleave", () => {
           h4.children[2].remove();
         })
-
-
 
         teamList.appendChild(h4);
 
@@ -658,7 +641,6 @@ function displayPokemon(pokemonObject, htmlElement){
 
 function clearNavTeams(trainerObject){
   let teamList = document.getElementById("teams");
-
   teamList.textContent = "";
 }
 
@@ -673,16 +655,14 @@ function getNav(trainerObject){
 }
 
 const closeButton = document.querySelector(".closebtn");
-
   closeButton.addEventListener("click", () => {
     closeNav();
   })
 
-  const hamSpan = document.querySelector("#ham-span");
-
-    hamSpan.addEventListener("click", () => {
-      openNav();
-    })
+const hamSpan = document.querySelector("#ham-span");
+  hamSpan.addEventListener("click", () => {
+    openNav();
+  })
 
 function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
