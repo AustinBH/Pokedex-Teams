@@ -142,6 +142,7 @@ function trainerSignup(username) {
 }
 
 function login(trainerObject) {
+  const head = document.querySelector("header");
 
   const img = document.querySelector("img");
       img.className = ""
@@ -152,7 +153,24 @@ function login(trainerObject) {
 
       const searchForm = document.createElement("form");
       const typeInput = document.createElement("input");
-      const typeSubmit = document.createElement("submit");
+        typeInput.value = "Search By Type"
+        typeInput.setAttribute("type", "text")
+
+      const typeSubmit = document.createElement("input");
+        typeSubmit.setAttribute("type", "submit")
+        typeSubmit.setAttribute("value", "Search")
+
+      searchForm.appendChild(typeInput);
+      searchForm.appendChild(typeSubmit);
+
+      searchForm.addEventListener("submit", () => {
+        event.preventDefault()
+        let input = `?type=${event.target[0].value}`
+        getPokemon(input)
+        searchForm.reset();
+      })
+
+      head.appendChild(searchForm);
         
 
   localStorage.setItem('trainer_id', trainerObject.id)
@@ -191,10 +209,10 @@ document.addEventListener('DOMContentLoaded', () => {
   loginPage()
 })
 
-function getPokemon() {
+function getPokemon(search = "") {
   const main = document.querySelector('#main-wrapper')
   main.textContent = ''
-  fetch('http:localhost:3000/pokemon', {
+  fetch(`http:localhost:3000/pokemon${search}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -203,8 +221,12 @@ function getPokemon() {
   })
   .then(res => res.json())
   .then(json => {
-    for (pokemon of json)
-    addPokemon(pokemon)
+    if (!json.message){
+     for (pokemon of json)
+      addPokemon(pokemon)
+    } else {
+      displayErrorMessage(json.message)
+   }
   })
 }
 
