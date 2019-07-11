@@ -1,3 +1,5 @@
+const MAIN = document.getElementById("main-wrapper");
+
 function getTrainer(id) {
   fetch(`http://localhost:3000/trainers/${id}`, {
       method: 'GET',
@@ -199,6 +201,11 @@ function login(trainerObject) {
 
   let spaceHolder = document.createElement("span");
     spaceHolder.id = "space-holder"
+    spaceHolder.textContent = "Create New Team"
+
+    spaceHolder.addEventListener("click", () => {
+      displayTrainerInfo()
+    })
     head.appendChild(spaceHolder);
     head.appendChild(searchForm);
 
@@ -556,7 +563,6 @@ function appendTeam(teamObject, list, htmlElement) {
 
 function displayTeamInfo(teamObject, htmlElement) {
   htmlElement.textContent = ''
-  htmlElement.style.display = "grid"
 
   const div = document.createElement("div");
     div.className = "teams-div"
@@ -587,6 +593,20 @@ function displaySinglePokemon(pokemonObject, teamObject, list) {
 
   pokemonName.addEventListener("click", () => {
     showSinglePokemon(pokemonObject);
+  })
+
+  pokemonName.addEventListener("mouseenter", () => {
+    const thumbNail = pokemonObject.img_url
+    const displayThumbnail = document.createElement("img");
+      displayThumbnail.src = thumbNail;
+      displayThumbnail.className = "thumb-nail"
+
+      MAIN.appendChild(displayThumbnail);
+  })
+
+  pokemonName.addEventListener("mouseleave", () => {
+    const image = document.querySelector(".thumb-nail");
+    MAIN.children[1].remove()
   })
 
   button.addEventListener('click', () => {

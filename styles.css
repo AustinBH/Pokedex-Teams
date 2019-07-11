@@ -11,6 +11,10 @@ body {
     display: grid;
   }
 
+  .thumb-nail {
+    grid-area: 1 / 4 / span 2 / span 1;
+  }
+
   header img {
     padding-bottom: 10px;
     margin-right: auto;
@@ -30,6 +34,14 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  #space-holder {
+    display: block;
+    margin: auto;
+    color: rgb(255,198,3);
+    grid-area: 1 / 3 / span 2 / span 1;
+    font-size: 30px;
   }
 
   main {
@@ -316,6 +328,8 @@ body {
       z-index: 6;
     }
 
+    
+
     /* h2.show {
       text-align: center;
     } */
@@ -440,6 +454,17 @@ body {
     div.login {
       grid-area: 1 / 1 / span 1 / span 1;
     }
+    #space-holder {
+      display: none;
+    }
+    #search{
+      max-width: 450px;
+      z-index: 1;
+      margin-top: auto;
+    }
+    .logout {
+      grid-area: 2 / 3 / span 1 / span 1;
+    }
   }
 
   @media only screen and (min-width: 670px) and (max-width: 999px) {
@@ -448,6 +473,9 @@ body {
     }
     div.login {
       grid-area: 1 / 1 / span 1 / span 2;
+    }
+    #space-holder {
+      display: none;
     }
   }
 
