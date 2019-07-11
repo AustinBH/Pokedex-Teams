@@ -20,6 +20,7 @@ function saveTeamInfo(trainerObject) {
 
 function loginPage() {
   const head = document.querySelector("header");
+  
 
 
   const main = document.querySelector('main')
@@ -150,8 +151,11 @@ function login(trainerObject) {
         getPokemon()
         getTrainer(TRAINER_ID)
       })
-
+      const searchLabel = document.createElement("span");
+        searchLabel.className = "trainer"
+        searchLabel.textContent = "Search By Type"
       const searchForm = document.createElement("form");
+        searchForm.id = "search"
       const typeInput = document.createElement("input");
         typeInput.value = "Search By Type"
         typeInput.setAttribute("type", "text")
@@ -159,7 +163,7 @@ function login(trainerObject) {
       const typeSubmit = document.createElement("input");
         typeSubmit.setAttribute("type", "submit")
         typeSubmit.setAttribute("value", "Search")
-
+      searchForm.appendChild(searchLabel);
       searchForm.appendChild(typeInput);
       searchForm.appendChild(typeSubmit);
 
@@ -169,7 +173,10 @@ function login(trainerObject) {
         getPokemon(input)
         searchForm.reset();
       })
-
+      let spaceHolder = document.createElement("span");
+        spaceHolder.id = "space-holder"
+  
+      head.appendChild(spaceHolder);
       head.appendChild(searchForm);
         
 
@@ -190,6 +197,8 @@ function login(trainerObject) {
 
 function addLogoutButton() {
   const header = document.querySelector('header')
+  const search = document.getElementById("search")
+  const spaceHolder = document.getElementById("space-holder")
   // const goBack = document.querySelector('button')
   const button = document.createElement("button")
   button.textContent = 'Logout'
@@ -200,6 +209,8 @@ function addLogoutButton() {
   button.addEventListener('click', () => {
     // header.removeChild(goBack)
     header.removeChild(button)
+    header.removeChild(spaceHolder);
+    header.removeChild(search)
     localStorage.clear()
     loginPage()
   })
