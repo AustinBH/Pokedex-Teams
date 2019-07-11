@@ -8,19 +8,14 @@ body {
     background-color: #4caf50;
     margin: 0 auto;
     height: 120px;
-    /* position: fixed; */
     display: grid;
-
-    /* background-image: url("https://cdn.evbuc.com/eventlogos/180190045/pokemonpokeball.jpg"); */
   }
 
   header img {
     padding-bottom: 10px;
-    /* margin-left: auto; */
     margin-right: auto;
     display: block;
     grid-area: 1 / 2 / span 2 / span 1;
-    /* width: 400px; */
     z-index: 6;
   }
 
@@ -35,7 +30,6 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
-
   }
 
   main {
@@ -63,14 +57,11 @@ body {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    /* z-index: 3; */
-    /* border-radius: 5px; */
   }
 
   #trainer-test{
     max-height: 500px;
     width: 300px;
-    /* display: block; */
     border: 5px black;
   }
 
@@ -82,6 +73,7 @@ body {
 
   #search{
     max-width: 450px;
+    z-index: 1;
   }
 
   .front-name {
@@ -115,6 +107,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     display: inline;
+    cursor: pointer;
   }
 
   select {
@@ -129,18 +122,20 @@ body {
     padding: 16px;
     max-width: 450px;
   }
+
   .sidenav {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: rgb(46, 96, 180);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
   }
+
   .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -154,16 +149,16 @@ body {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #f1f1f1;
     display: block;
     transition: 0.3s;
   }
   .sidenav span:hover {
-    color: #f1f1f1;
+    color: rgb(255,198,3);
   }
 
   .sidenav li:hover {
-    color: #f1f1f1;
+    color: rgb(255,198,3);
   }
   .sidenav .closebtn {
     position: absolute;
@@ -251,6 +246,7 @@ body {
     display: inline;
     height: 25px;
     width: 100px;
+    cursor: pointer;
   }
 
   .logout {
@@ -266,8 +262,30 @@ body {
     display: none;
   }
 
-  /* Adding all of our pokemon type
-  colors here */
+  /* Styling Show Card */
+
+    .show-div {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .show-data {
+      font-size: 16px;
+      display: inline;
+      margin-left: 5px;
+    }
+
+    ul.show {
+      padding: 0px;
+    }
+
+    .show button {
+      margin-left: 2px;
+    }
+
+  /* Styling Type Buttons */
 
     button.poison {
       background-color: #B97FC9
@@ -351,16 +369,6 @@ body {
     text-align: center;
   }
 
-  /* #trainer-dropdown {
-    font-size: .80em;
-    color: #fff;
-    background-color: #e60000;
-    border-radius: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-  } */
-
   @media only screen and (max-width: 670px) {
     main {
       grid-template-columns: 1fr;
@@ -378,7 +386,7 @@ body {
 
   @media only screen and (max-width: 1350px) and (min-width: 999px) {
     main{
-      grid-template-columns: 1fr 1fr 1fr
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 
