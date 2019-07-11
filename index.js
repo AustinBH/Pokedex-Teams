@@ -20,7 +20,7 @@ function saveTeamInfo(trainerObject) {
 
 function loginPage() {
   const head = document.querySelector("header");
-  
+
 
 
   const main = document.querySelector('main')
@@ -109,7 +109,7 @@ function trainerLogin(username) {
       return el.username.toLowerCase() === username.toLowerCase()
     })
     if (user) {
-        login(user) 
+        login(user)
     }
     else {
       displayErrorMessage("We could not find a trainer with that username!")
@@ -153,11 +153,12 @@ function login(trainerObject) {
       })
       const searchLabel = document.createElement("span");
         searchLabel.className = "trainer"
-        searchLabel.textContent = "Search By Type"
+        searchLabel.textContent = "Search By Name"
       const searchForm = document.createElement("form");
         searchForm.id = "search"
       const typeInput = document.createElement("input");
-        typeInput.value = "Search By Type"
+        typeInput.setAttribute("onfocus", "this.value=''")
+        typeInput.value = "Search By Name"
         typeInput.setAttribute("type", "text")
 
       const typeSubmit = document.createElement("input");
@@ -169,16 +170,16 @@ function login(trainerObject) {
 
       searchForm.addEventListener("submit", () => {
         event.preventDefault()
-        let input = `?type=${event.target[0].value}`
+        let input = `?name=${event.target[0].value}`
         getPokemon(input)
         searchForm.reset();
       })
       let spaceHolder = document.createElement("span");
         spaceHolder.id = "space-holder"
-  
+
       head.appendChild(spaceHolder);
       head.appendChild(searchForm);
-        
+
 
   localStorage.setItem('trainer_id', trainerObject.id)
   TRAINER_ID = trainerObject.id
@@ -300,6 +301,12 @@ function addPokemonTypes(pokemonObject, htmlElement) {
     let button = document.createElement('button')
         button.textContent = singleType
         button.className = singleType
+
+        button.addEventListener('click', () => {
+          let path = `?type=${button.textContent}`
+          getPokemon(path)
+        })
+
         htmlElement.appendChild(button)
   }
   return htmlElement
@@ -554,7 +561,7 @@ function deleteTeam(teamObject, htmlElement) {
 //   const button = document.createElement('button')
 //   button.textContent = 'Go Back'
 
-//   
+//
 //   header.appendChild(button)
 // }
 
@@ -607,7 +614,7 @@ function displayNavTeams(team){
         deleteFromNav.id = "delete-nav"
         h4.appendChild(deleteFromNav)
 
-        
+
 
         span.addEventListener("click", () => {
           closeNav();
@@ -629,7 +636,7 @@ function displayNavTeams(team){
           h4.children[2].remove();
         })
 
-        
+
 
         teamList.appendChild(h4);
 
