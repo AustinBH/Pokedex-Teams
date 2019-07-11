@@ -364,7 +364,7 @@ function showSinglePokemon(pokemonObject) {
   const addToTeam = addPokemonToTeam(pokemonObject)
 
   main.textContent = ''
-  main.className = 'show-page'
+  // main.className = 'show-page'
   if (pokemonObject.pokedex_number <= 10) {
       pokedexEntry.textContent = `#00${pokemonObject.pokedex_number}`
   }
@@ -466,15 +466,26 @@ function displayTrainerInfo() {
 function addTrainer(trainerObject) {
   const trainerTeams = trainerObject.teams
   const main = document.querySelector('main')
+    // main.className = "team-show-page"
+
   const div = document.createElement('div')
+    div.className = "teams-div"
   const name = document.createElement('h2')
+    name.className = "show"
   const teams = document.createElement('ul')
+    teams.className = "show-team-list"
   const form = document.createElement('form')
+    form.className = "show"
   const input1 = document.createElement('input')
   const input2 = document.createElement('input')
 
+  const liLabel = document.createElement("li");
+    liLabel.textContent = "Teams:"
+    liLabel.className = "team-label"
+
+    teams.appendChild(liLabel);
+
   name.textContent = trainerObject.username
-  teams.textContent = 'Teams:'
   input1.setAttribute('type', 'text')
   input2.setAttribute('type', 'submit')
   input2.value = 'Create new team'
@@ -488,6 +499,7 @@ function addTrainer(trainerObject) {
   })
 
   main.textContent = ''
+ 
   form.appendChild(input1)
   form.appendChild(input2)
   div.appendChild(name)
@@ -498,6 +510,7 @@ function addTrainer(trainerObject) {
 
 function appendTeam(teamObject, list, htmlElement) {
   const li = document.createElement('li')
+    li.className = "show"
   const teamName = document.createElement('span')
   const button = document.createElement('button')
   button.textContent = 'Delete'
@@ -514,23 +527,38 @@ function appendTeam(teamObject, list, htmlElement) {
 
 function displayTeamInfo(teamObject, htmlElement) {
   htmlElement.textContent = ''
+  htmlElement.style.display = "grid"
+
+  const div = document.createElement("div");
+    div.className = "teams-div"
 
   const pokemonList = document.createElement('ul')
-  pokemonList.textContent = `${teamObject.name}: `
+  pokemonList.className = "show-team-list";
+
+  const listLabel = document.createElement("li");
+    listLabel.textContent =`${teamObject.name}: `
+    pokemonList.appendChild(listLabel);
   const teamPokemon = teamObject.pokemon
   for (pokemon of teamPokemon) {
     displaySinglePokemon(pokemon, teamObject, pokemonList)
   }
-  htmlElement.appendChild(pokemonList)
+  div.appendChild(pokemonList);
+  htmlElement.appendChild(div)
 }
 
 function displaySinglePokemon(pokemonObject, teamObject, list) {
   const li = document.createElement('li')
+    li.className =  "team-list-pokemon";
+
   const pokemonName = document.createElement('span')
   const button = document.createElement('button')
   pokemonName.textContent = pokemon.name
   button.textContent = 'Delete'
   button.className = 'delete-button'
+
+  pokemonName.addEventListener("click", () => {
+    showSinglePokemon(pokemonObject);
+  })
 
   button.addEventListener('click', () => {
     deletePokemonFromTeam(pokemonObject, teamObject, li)
