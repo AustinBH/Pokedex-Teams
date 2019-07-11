@@ -35,30 +35,38 @@ function loginPage() {
     ham.className = 'hidden'
     nav.className = 'hidden'
     head.appendChild(newImage);
-
+  const wrapper = document.createElement("div")
+    wrapper.className = "login"
   const form1 = document.createElement('form')
   const header1 = document.createElement('h2')
-  const label1 = document.createElement('label')
   const input1 = document.createElement('input')
   const input2 = document.createElement('input')
   const form2 = document.createElement('form')
+    form2.className = "hidden"
   const header2 = document.createElement('h2')
-  const label2 = document.createElement('label')
   const input3 = document.createElement('input')
   const input4 = document.createElement('input')
 
+  const signUpLink = document.createElement("p");
+    signUpLink.textContent = "New Trainer?"
+
+    const linkSpan = document.createElement("span");
+      linkSpan.textContent = " Sign Up!"
+
+      signUpLink.appendChild(linkSpan);
+      
+
   form1.className = 'login'
-  form2.className = 'signup'
   header1.textContent = 'Login'
-  label1.textContent = 'Username: '
   input1.setAttribute('type', 'text')
+  input1.setAttribute("placeholder", "Enter Your Username")
   input2.setAttribute('type', 'submit')
   input2.value = 'Login'
   input2.className = 'submit'
   header2.textContent = 'Signup'
-  label2.textContent = 'Username: '
   input3.setAttribute('type', 'text')
   input4.setAttribute('type', 'submit')
+  input3.setAttribute("placeholder", "Enter A Username")
   input4.value = 'Signup'
   input4.className = 'submit'
 
@@ -74,16 +82,37 @@ function loginPage() {
     main.className = ''
   })
 
+  linkSpan.addEventListener("click", () => {
+        switchLoginForm(form2, form1)
+        signUpLink.className = "hidden"
+  })
+
   form1.appendChild(header1)
-  form1.appendChild(label1)
   form1.appendChild(input1)
   form1.appendChild(input2)
   form2.appendChild(header2)
-  form2.appendChild(label2)
   form2.appendChild(input3)
   form2.appendChild(input4)
-  main.appendChild(form1)
-  main.appendChild(form2)
+  wrapper.appendChild(form1)
+  wrapper.appendChild(form2)
+  wrapper.appendChild(signUpLink)  
+  main.appendChild(wrapper)
+}
+
+function switchLoginForm(show, hide){
+  show.className = "login"
+
+  hide.className = "hidden"
+
+  const loginLink = document.createElement("p");
+    loginLink.textContent = "Login";
+    loginLink.style.cursor = "pointer"
+
+    show.appendChild(loginLink);
+
+    loginLink.addEventListener("click", () => {
+      loginPage();
+    })
 }
 
 function trainerLogin(username) {
@@ -152,8 +181,8 @@ function login(trainerObject) {
     searchLabel.className = "trainer"
     searchLabel.textContent = "Search By Name"
     searchForm.id = "search"
-    typeInput.setAttribute("onfocus", "this.value=''")
-    typeInput.value = "Search By Name"
+    typeInput.setAttribute("placeholder", "Search By Name")
+    // typeInput.value = "Search By Name"
     typeInput.setAttribute("type", "text")
     typeSubmit.setAttribute("type", "submit")
     typeSubmit.setAttribute("value", "Search")
