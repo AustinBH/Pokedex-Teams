@@ -56,7 +56,7 @@ function loginPage() {
       linkSpan.textContent = " Sign Up!"
 
       signUpLink.appendChild(linkSpan);
-      
+
 
   form1.className = 'login'
   header1.textContent = 'Login'
@@ -97,7 +97,7 @@ function loginPage() {
   form2.appendChild(input4)
   wrapper.appendChild(form1)
   wrapper.appendChild(form2)
-  wrapper.appendChild(signUpLink)  
+  wrapper.appendChild(signUpLink)
   main.appendChild(wrapper)
 }
 
@@ -521,7 +521,7 @@ function addTrainer(trainerObject) {
 
     teams.appendChild(liLabel);
 
-  name.textContent = trainerObject.username
+  name.textContent = `${trainerObject.username}'s`
   input1.setAttribute('type', 'text')
   input2.setAttribute('type', 'submit')
   input2.value = 'Create new team'
@@ -535,7 +535,7 @@ function addTrainer(trainerObject) {
   })
 
   main.textContent = ''
- 
+
   form.appendChild(input1)
   form.appendChild(input2)
   div.appendChild(name)
