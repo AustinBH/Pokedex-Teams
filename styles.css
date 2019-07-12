@@ -160,7 +160,7 @@ body {
   select {
     text-align: center;
     margin: 0 auto;
-    margin-top: 3px;
+    margin-top: 5px;
     display: block;
     max-width: 300px;
   }
@@ -500,33 +500,15 @@ body {
       display: none;
     }
     div.login {
-      grid-area: 1 / 1 / span 1 / span 1;
-    }
-    #space-holder {
-      display: none;
-    }
-    #search{
-      max-width: 450px;
-      z-index: 1;
-      margin-top: auto;
-    }
-    .logout {
-      margin: auto;
-      grid-area: 1 / 4 / span 2 / span 1;
-    }
-  }
-
-  @media only screen and (max-width: 670px) {
-    main {
-      grid-template-columns: 1fr;
-    }
-    div.login {
       grid-area: 1 / 1 / span 1 / span 2;
     }
     #space-holder {
       display: none;
     }
     #search {
+      max-width: 450px;
+      z-index: 1;
+      margin: 0 auto;
       grid-area: 1 / 2 / span 1 / span 1;
     }
     div.show-div {
@@ -539,6 +521,10 @@ body {
     div.teams-div {
       grid-area: 1 / 1 / span 1 / span 2;
       margin: 0 auto;
+    }
+    .logout {
+      margin: auto;
+      grid-area: 1 / 4 / span 2 / span 1;
     }
   }
 
@@ -554,9 +540,6 @@ body {
     }
     #search {
       grid-area: 1 / 2 / span 2 / span 1;
-    }
-    #search-label {
-      display: none;
     }
     #space-holder {
       display: none;
