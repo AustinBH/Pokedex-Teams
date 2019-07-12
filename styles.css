@@ -9,6 +9,7 @@ body {
     margin: 0 auto;
     height: 120px;
     display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 
   .thumb-nail {
@@ -20,12 +21,13 @@ body {
     margin-right: auto;
     margin-left: auto;
     display: block;
-    grid-area: 1 / 2 / span 2 / span 1;
+    justify-content: center;
+    grid-area: 1 / 3 / span 2 / span 1;
     z-index: 6;
   }
 
   img.login {
-    grid-area: 1 / 1 / span 2 / span 1;
+    grid-area: 1 / 3 / span 2 / span 1;
     margin-left: auto;
   }
 
@@ -41,8 +43,20 @@ body {
     display: block;
     margin: auto;
     color: rgb(255,198,3);
-    grid-area: 1 / 3 / span 2 / span 1;
-    font-size: 30px;
+    grid-area: 1 / 4 / span 2 / span 1;
+    font-size: 20px;
+    background-color: rgb(46, 96, 180);
+    color: rgb(255,198,3);
+  }
+
+  #generation-filter {
+    grid-area: 2 / 2 / span 1 / span 1;
+    text-align: center;
+    margin: auto;
+  }
+
+  #generation-filter span {
+    font-size: 20px;
   }
 
   main {
@@ -86,6 +100,7 @@ body {
   }
 
   #search{
+    margin: auto;
     max-width: 450px;
     z-index: 1;
   }
@@ -104,7 +119,6 @@ body {
   p {
     font-size: 1.5em;
     color: black;
-    /* font-family: Helvetica; */
   }
 
   li {
@@ -142,7 +156,7 @@ body {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 2;
+    z-index: 8;
     top: 0;
     left: 0;
     background-color: rgb(46, 96, 180);
@@ -232,14 +246,6 @@ body {
     display: grid;
   }
 
-  /* form.signup {
-    margin: 0 auto;
-    width: 80%;
-    font-size: 16px;
-    grid-area: 1 / 1 / span 1 / span 2;
-    display: block;
-  } */
-
   div.login {
     margin: 0 auto;
     width: 80%;
@@ -283,9 +289,9 @@ body {
   }
 
   .logout {
-    margin-top: auto;
+    margin: auto;
     display: block;
-    grid-area: 1 / 4 / span 1 / span 1;
+    grid-area: 1 / 5 / span 2 / span 1;
     height: 40px;
     background-color: rgb(46, 96, 180);
     color: rgb(255,198,3);
@@ -321,8 +327,6 @@ body {
       margin-left: 2px;
     }
 
-
-
     /* Show Teams */
 
     .teams-div {
@@ -346,7 +350,6 @@ body {
 
     ul.show-team-list {
       margin: auto;
-      /* width: 100%; */
       padding: 0px;
     }
 
@@ -360,10 +363,6 @@ body {
     .team-list-pokemon:hover {
       color: rgb(255,198,3);
     }
-
-    /* .team-show-page {
-      display: grid
-    } */
 
   /* Styling Type Buttons */
 
@@ -438,6 +437,11 @@ body {
       background-color: #705848
     }
 
+  #search-label {
+    display: block;
+    font-size: 20px;
+  }
+
   .in-line-buttons {
     display: flex;
     justify-content: center;
@@ -471,7 +475,34 @@ body {
       margin-top: auto;
     }
     .logout {
-      grid-area: 2 / 3 / span 1 / span 1;
+      margin: auto;
+      grid-area: 1 / 4 / span 2 / span 1;
+    }
+  }
+
+  @media only screen and (max-width: 670px) {
+    main {
+      grid-template-columns: 1fr;
+    }
+    div.login {
+      grid-area: 1 / 1 / span 1 / span 2;
+    }
+    #space-holder {
+      display: none;
+    }
+    #search {
+      grid-area: 2 / 1 / span 1 / span 1;
+    }
+    div.show-div {
+      grid-area: 1 / 1 / span 1 / span 2;
+    }
+    .thumb-nail {
+      grid-area: 3 / 1 / span 1 / span 2;
+      margin: 0 auto;
+    }
+    div.teams-div {
+      grid-area: 1 / 1 / span 1 / span 2;
+      margin: 0 auto;
     }
   }
 
@@ -482,8 +513,20 @@ body {
     div.login {
       grid-area: 1 / 1 / span 1 / span 2;
     }
+    #hamburger-main {
+      grid-area: 1 / 1 / span 2 / span 1;
+    }
+    #search {
+      grid-area: 1 / 2 / span 2 / span 1;
+    }
+    #search-label {
+      display: none;
+    }
     #space-holder {
       display: none;
+    }
+    #generation-filter {
+      grid-area: 1 / 4 / span 2 / span 1;
     }
     div.show-div {
       grid-area: 1 / 1 / span 1 / span 2;
@@ -509,10 +552,10 @@ body {
       grid-area: 1 / 1 / span 1 / span 3;
     }
     .thumb-nail {
-      grid-area: 2 / 1 / span 1 / span 1;
+      grid-area: 1 / 3 / span 1 / span 1;
     }
     div.teams-div {
-      grid-area: 2 / 1 / span 1 / span 1;
+      grid-area: 1 / 2 / span 1 / span 1;
       margin: 0 auto;
     }
   }

@@ -1,18 +1,25 @@
 const MAIN = document.getElementById("main-wrapper");
 
+
+// Waiting for DOM to render login
+document.addEventListener('DOMContentLoaded', () => {
+  loginPage()
+})
+
+// This is our get fetch for our trainer info this can also update trainer info
 function getTrainer(id) {
   fetch(`http://localhost:3000/trainers/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(json => {
-      saveTeamInfo(json)
-      getNav(json)
-    })
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then(json => {
+    saveTeamInfo(json)
+    getNav(json)
+  })
 }
 
 function saveTeamInfo(trainerObject) {
@@ -20,6 +27,7 @@ function saveTeamInfo(trainerObject) {
   TEAMS = trainerObject.teams
 }
 
+// This function renders our login page
 function loginPage() {
   const head = document.querySelector("header");
   const main = document.querySelector('main')
@@ -32,33 +40,31 @@ function loginPage() {
     main.className = 'login'
     img.parentNode.removeChild(img);
     newImage.src = "https://fontmeme.com/permalink/190710/f87c04db0b54e3b89caa3d1d3ee405fb.png"
-    newImage.id = "header-img"
     newImage.className = "login"
     ham.className = 'hidden'
     nav.className = 'hidden'
     head.appendChild(newImage);
+
   const wrapper = document.createElement("div")
-    wrapper.className = "login"
   const form1 = document.createElement('form')
   const header1 = document.createElement('h2')
   const input1 = document.createElement('input')
   const input2 = document.createElement('input')
   const form2 = document.createElement('form')
-    form2.className = "hidden"
   const header2 = document.createElement('h2')
   const input3 = document.createElement('input')
   const input4 = document.createElement('input')
 
   const signUpLink = document.createElement("p");
-    signUpLink.textContent = "New Trainer?"
+  const linkSpan = document.createElement("span");
 
-    const linkSpan = document.createElement("span");
-      linkSpan.textContent = " Sign Up!"
+  signUpLink.textContent = "New Trainer?"
+  linkSpan.textContent = " Sign Up!"
+  signUpLink.appendChild(linkSpan);
 
-      signUpLink.appendChild(linkSpan);
-
-
+  wrapper.className = "login"
   form1.className = 'login'
+  form2.className = "hidden"
   header1.textContent = 'Login'
   input1.setAttribute('type', 'text')
   input1.setAttribute("placeholder", "Enter Your Username")
@@ -101,22 +107,24 @@ function loginPage() {
   main.appendChild(wrapper)
 }
 
+// This function just swaps the login/signup forms
 function switchLoginForm(show, hide){
   show.className = "login"
-
   hide.className = "hidden"
 
   const loginLink = document.createElement("p");
-    loginLink.textContent = "Login";
-    loginLink.style.cursor = "pointer"
+  loginLink.textContent = "Login";
+  loginLink.style.cursor = "pointer"
 
-    show.appendChild(loginLink);
+  show.appendChild(loginLink);
 
-    loginLink.addEventListener("click", () => {
-      loginPage();
-    })
+  loginLink.addEventListener("click", () => {
+    loginPage();
+  })
 }
 
+// This is where we attempt to login by checking if the entered info matches a username
+// **Not case specific**
 function trainerLogin(username) {
   fetch('http://localhost:3000/trainers', {
     method: 'GET',
@@ -140,6 +148,7 @@ function trainerLogin(username) {
   })
 }
 
+// This creates a new trainer when a user signs up
 function trainerSignup(username) {
   fetch('http://localhost:3000/trainers', {
     method: 'POST',
@@ -163,6 +172,7 @@ function trainerSignup(username) {
   })
 }
 
+// This function logs in and updates the dom with trainer specific info
 function login(trainerObject) {
   const head = document.querySelector("header");
   const img = document.querySelector("img");
@@ -171,43 +181,66 @@ function login(trainerObject) {
   const searchForm = document.createElement("form");
   const typeInput = document.createElement("input");
   const typeSubmit = document.createElement("input");
+  const spaceHolder = document.createElement("button");
+  const genFilter = document.createElement('div')
+  const genFilterLabel = document.createElement('span')
+  const genFilterSelect = document.createElement('select')
+  const genSelectDefault = document.createElement('option')
 
-    img.className = ""
-    img.style.cursor = 'pointer'
-    img.addEventListener('click', () => {
-      getPokemon()
-      getTrainer(TRAINER_ID)
-    })
+  img.className = ""
+  img.style.cursor = 'pointer'
+  img.addEventListener('click', () => {
+    getPokemon()
+    getTrainer(TRAINER_ID)
+  })
 
-    trainerName.textContent = trainerObject.username
-    searchLabel.className = "trainer"
-    searchLabel.textContent = "Search By Name"
-    searchForm.id = "search"
-    typeInput.setAttribute("placeholder", "Search By Name")
-    // typeInput.value = "Search By Name"
-    typeInput.setAttribute("type", "text")
-    typeSubmit.setAttribute("type", "submit")
-    typeSubmit.setAttribute("value", "Search")
-    searchForm.appendChild(searchLabel);
-    searchForm.appendChild(typeInput);
-    searchForm.appendChild(typeSubmit);
+  genFilter.id = 'generation-filter'
+  genFilterLabel.className = 'trainer'
+  genFilterLabel.textContent = 'Generation'
+  genSelectDefault.textContent = 'Choose a Generation'
 
-    searchForm.addEventListener("submit", () => {
-      event.preventDefault()
-      let input = `?name=${event.target[0].value}`
-      getPokemon(input)
-      searchForm.reset();
-    })
+  genFilterSelect.appendChild(genSelectDefault)
 
-  let spaceHolder = document.createElement("span");
-    spaceHolder.id = "space-holder"
-    spaceHolder.textContent = "Create New Team"
+  addGenerationFilterOptions(genFilterSelect)
 
-    spaceHolder.addEventListener("click", () => {
-      displayTrainerInfo()
-    })
-    head.appendChild(spaceHolder);
-    head.appendChild(searchForm);
+  genFilter.appendChild(genFilterLabel)
+  genFilter.appendChild(genFilterSelect)
+
+  genFilterSelect.addEventListener('change', () => {
+    let input = `?generation=${genFilterSelect.value}`
+    getPokemon(input)
+
+  })
+
+  trainerName.textContent = trainerObject.username
+  searchLabel.className = "trainer"
+  searchLabel.id = 'search-label'
+  searchLabel.textContent = "Name Search"
+  searchForm.id = "search"
+  typeInput.setAttribute("placeholder", "Search By Name")
+  typeInput.setAttribute("type", "text")
+  typeSubmit.setAttribute("type", "submit")
+  typeSubmit.setAttribute("value", "Search")
+  spaceHolder.id = "space-holder"
+  spaceHolder.textContent = "Create New Team"
+  searchForm.appendChild(searchLabel);
+  searchForm.appendChild(typeInput);
+  searchForm.appendChild(typeSubmit);
+  head.appendChild(spaceHolder);
+  head.appendChild(searchForm);
+  head.appendChild(genFilter)
+
+  searchForm.addEventListener("submit", () => {
+    event.preventDefault()
+    let searchTerm = event.target[0].value.toLowerCase()
+    let input = `?name=${searchTerm}`
+    getPokemon(input)
+    searchForm.reset();
+  })
+
+  spaceHolder.addEventListener("click", () => {
+    displayTrainerInfo()
+  })
 
   localStorage.setItem('trainer_id', trainerObject.id)
   TRAINER_ID = trainerObject.id
@@ -223,6 +256,15 @@ function login(trainerObject) {
   })
 }
 
+function addGenerationFilterOptions(htmlElement) {
+  for (let i = 1; i < 8; i++) {
+    let option = document.createElement('option')
+    option.textContent = i
+    htmlElement.appendChild(option)
+  }
+}
+
+// This function generates our logout button and appends it to the dom
 function addLogoutButton() {
   const header = document.querySelector('header')
   const search = document.getElementById("search")
@@ -242,10 +284,7 @@ function addLogoutButton() {
   })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  loginPage()
-})
-
+// This function queries our db for pokemon and allows for filtering
 function getPokemon(search = "") {
   const main = document.querySelector('#main-wrapper')
   main.textContent = ''
@@ -267,6 +306,7 @@ function getPokemon(search = "") {
   })
 }
 
+// This function is adding all of our selected pokemon to the dom
 function addPokemon(pokemonObject) {
   const main = document.querySelector('main')
   const div = document.createElement('div')
@@ -282,28 +322,23 @@ function addPokemon(pokemonObject) {
 
 function pokemonInfo(pokemonObject, htmlElement) {
   htmlElement.textContent = "";
-  let name = document.createElement("h2");
-      name.textContent = pokemonObject.name;
-      name.className = 'pokemon-info'
+  const name = document.createElement("h2");
+  const ul = document.createElement('ul')
+  const type = document.createElement("li")
+  const height = document.createElement("li");
+  const weight = document.createElement("li");
+  const pokedexEntry = document.createElement('li');
+  const showMore = document.createElement("button");
 
-  let ul = document.createElement('ul')
-      ul.className = 'pokemon-info'
-
-  let type = document.createElement("li")
-      addPokemonTypes(pokemonObject, type)
-
-  let height = document.createElement("li");
-      height.textContent = `Height: ${pokemonObject.height}`;
-
-  let weight = document.createElement("li");
-      weight.textContent = `Weight ${pokemonObject.weight}`;
-
-  let pokedexEntry = document.createElement('li');
-      pokedexEntry.textContent = `Pokedex Entry: ${pokemonObject.pokedex_number}`
-
-  let showMore = document.createElement("button");
-      showMore.textContent = "Show More"
-      showMore.className = 'in-line-buttons'
+  name.textContent = pokemonObject.name;
+  name.className = 'pokemon-info'
+  ul.className = 'pokemon-info'
+  addPokemonTypes(pokemonObject, type)
+  height.textContent = `Height: ${pokemonObject.height}`;
+  weight.textContent = `Weight ${pokemonObject.weight}`;
+  pokedexEntry.textContent = `Pokedex Entry: ${pokemonObject.pokedex_number}`
+  showMore.textContent = "Show More"
+  showMore.className = 'in-line-buttons'
 
   showMore.addEventListener('click', () => {
     showSinglePokemon(pokemonObject)
@@ -338,11 +373,12 @@ function addPokemonTypes(pokemonObject, htmlElement) {
 }
 
 function addPokemonToTeam(pokemonObject) {
-  let addPokemon = document.createElement("select")
-  let defaultOption = document.createElement('option')
+  const addPokemon = document.createElement("select")
+  const defaultOption = document.createElement('option')
   const main = document.querySelector('main')
-      defaultOption.textContent = 'Add to a Team'
-      addPokemon.add(defaultOption)
+
+  defaultOption.textContent = 'Add to a Team'
+  addPokemon.add(defaultOption)
 
   for (team of TEAMS) {
     let option = document.createElement('option')
@@ -400,7 +436,6 @@ function showSinglePokemon(pokemonObject) {
   const addToTeam = addPokemonToTeam(pokemonObject)
 
   main.textContent = ''
-  // main.className = 'show-page'
   if (pokemonObject.pokedex_number <= 10) {
       pokedexEntry.textContent = `#00${pokemonObject.pokedex_number}`
   }
@@ -502,24 +537,22 @@ function displayTrainerInfo() {
 function addTrainer(trainerObject) {
   const trainerTeams = trainerObject.teams
   const main = document.querySelector('main')
-    // main.className = "team-show-page"
-
   const div = document.createElement('div')
-    div.className = "teams-div"
   const name = document.createElement('h2')
-    name.className = "show"
   const teams = document.createElement('ul')
-    teams.className = "show-team-list"
   const form = document.createElement('form')
-    form.className = "show"
   const input1 = document.createElement('input')
   const input2 = document.createElement('input')
-
   const liLabel = document.createElement("li");
-    liLabel.textContent = "Teams:"
-    liLabel.className = "team-label"
 
-    teams.appendChild(liLabel);
+  div.className = "teams-div"
+  name.className = "show"
+  teams.className = "show-team-list"
+  form.className = "show"
+  liLabel.textContent = "Teams:"
+  liLabel.className = "team-label"
+
+  teams.appendChild(liLabel);
 
   name.textContent = `${trainerObject.username}'s`
   input1.setAttribute('type', 'text')
@@ -563,20 +596,20 @@ function appendTeam(teamObject, list, htmlElement) {
 
 function displayTeamInfo(teamObject, htmlElement) {
   htmlElement.textContent = ''
-
   const div = document.createElement("div");
-    div.className = "teams-div"
-
   const pokemonList = document.createElement('ul')
-  pokemonList.className = "show-team-list";
-
   const listLabel = document.createElement("li");
-    listLabel.textContent =`${teamObject.name}: `
-    pokemonList.appendChild(listLabel);
   const teamPokemon = teamObject.pokemon
+
+  div.className = "teams-div"
+  pokemonList.className = "show-team-list";
+  listLabel.textContent =`${teamObject.name}: `
+  pokemonList.appendChild(listLabel);
+
   for (pokemon of teamPokemon) {
     displaySinglePokemon(pokemon, teamObject, pokemonList)
   }
+
   div.appendChild(pokemonList);
   htmlElement.appendChild(div)
 }
@@ -668,6 +701,8 @@ function createNewTeam(htmlElement, trainerObject) {
   })
 }
 
+// Nav bar functions
+
 function listNavTeams(trainerObject){
   let teamList = document.getElementById("teams");
 
@@ -680,58 +715,57 @@ function listNavTeams(trainerObject){
 
 function displayNavTeams(team){
   const main = document.querySelector('main')
+  const teamList = document.getElementById("teams");
+  const h4 = document.createElement("h4");
+  const span = document.createElement('span')
+  const deleteFromNav = document.createElement("span")
 
-  let teamList = document.getElementById("teams");
-    let h4 = document.createElement("h4");
-    let span = document.createElement('span')
-        span.textContent = team.name;
-        h4.id = team.id;
-        h4.appendChild(span)
+  span.textContent = team.name;
+  h4.id = team.id;
+  h4.appendChild(span)
+  deleteFromNav.textContent = "×"
+  deleteFromNav.id = "delete-nav"
+  h4.appendChild(deleteFromNav)
 
-    let deleteFromNav = document.createElement("span")
-        deleteFromNav.textContent = "×"
-        deleteFromNav.id = "delete-nav"
-        h4.appendChild(deleteFromNav)
+  span.addEventListener("click", () => {
+    closeNav();
+    displayTeamInfo(team, main)
+  })
 
-        span.addEventListener("click", () => {
-          closeNav();
-          displayTeamInfo(team, main)
-        })
+  h4.addEventListener("mouseenter", () => {
+    let pokemon = team.pokemon;
+    let ul = document.createElement("ul");
 
-        h4.addEventListener("mouseenter", () => {
-          let pokemon = team.pokemon;
-          let ul = document.createElement("ul");
+    for (poke of pokemon){
+      displayPokemon(poke, ul);
+    }
+    h4.appendChild(ul);
+  })
 
-          for (poke of pokemon){
-            displayPokemon(poke, ul);
-          }
-          h4.appendChild(ul);
-        })
+  h4.addEventListener("mouseleave", () => {
+    h4.children[2].remove();
+  })
 
-        h4.addEventListener("mouseleave", () => {
-          h4.children[2].remove();
-        })
+  teamList.appendChild(h4);
 
-        teamList.appendChild(h4);
-
-        deleteFromNav.addEventListener("click", () => {
-          deleteTeam(team, h4)
-        })
+  deleteFromNav.addEventListener("click", () => {
+    deleteTeam(team, h4)
+  })
 }
 
 function displayPokemon(pokemonObject, htmlElement){
-    let li = document.createElement("li");
-      li.textContent = pokemonObject.name;
+  const li = document.createElement("li");
+    li.textContent = pokemonObject.name;
 
-      li.addEventListener("click", () => {
-        closeNav();
-        showSinglePokemon(pokemonObject);
-      })
-    htmlElement.appendChild(li);
+    li.addEventListener("click", () => {
+      closeNav();
+      showSinglePokemon(pokemonObject);
+    })
+  htmlElement.appendChild(li);
 }
 
 function clearNavTeams(trainerObject){
-  let teamList = document.getElementById("teams");
+  const teamList = document.getElementById("teams");
   teamList.textContent = "";
 }
 
