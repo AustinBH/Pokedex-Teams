@@ -751,6 +751,9 @@ function displayNavTeams(team){
 
   deleteFromNav.addEventListener("click", () => {
     deleteTeam(team, h4)
+    setTimeout(() => {
+      getTrainer(TRAINER_ID)
+    }, 200)
   })
 }
 
