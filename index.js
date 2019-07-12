@@ -359,15 +359,15 @@ function addPokemonTypes(pokemonObject, htmlElement) {
   const pokemonTypes = pokemonObject.pokemon_type.split(" ").filter(el => el != "")
   for (singleType of pokemonTypes) {
     let button = document.createElement('button')
-        button.textContent = singleType
-        button.className = singleType
+    button.textContent = singleType
+    button.className = singleType
 
-        button.addEventListener('click', () => {
-          let path = `?type=${button.textContent}`
-          getPokemon(path)
-        })
+    button.addEventListener('click', () => {
+      let path = `?type=${button.textContent}`
+      getPokemon(path)
+    })
 
-        htmlElement.appendChild(button)
+    htmlElement.appendChild(button)
   }
   return htmlElement
 }
@@ -760,6 +760,7 @@ function displayNavTeams(team){
 function displayPokemon(pokemonObject, htmlElement){
   const li = document.createElement("li");
     li.textContent = pokemonObject.name;
+    li.className = 'nav-pokemon'
 
     li.addEventListener("click", () => {
       closeNav();
