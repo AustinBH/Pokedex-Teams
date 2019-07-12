@@ -67,6 +67,11 @@ body {
     display: block;
   }
 
+  div.card img {
+    max-width: 80%;
+    max-height: 80%
+  }
+
   #trainer-test{
     max-height: 500px;
     width: 300px;
@@ -315,7 +320,7 @@ body {
       margin-left: 2px;
     }
 
-    
+
 
     /* Show Teams */
 
@@ -328,11 +333,10 @@ body {
       z-index: 6;
     }
 
-    
-
-    /* h2.show {
-      text-align: center;
-    } */
+    .teams-div h2 {
+      color: rgb(255,198,3);
+      font-size: 40px;
+    }
 
     .team-label {
       font-size: 20px;
@@ -429,6 +433,9 @@ body {
     button.dragon  {
       background-color: #53A4CF
     }
+    button.dark  {
+      background-color: #705848
+    }
 
   .in-line-buttons {
     display: flex;
@@ -477,6 +484,17 @@ body {
     #space-holder {
       display: none;
     }
+    div.show-div {
+      grid-area: 1 / 1 / span 1 / span 2;
+    }
+    .thumb-nail {
+      grid-area: 3 / 1 / span 1 / span 2;
+      margin: 0 auto;
+    }
+    div.teams-div {
+      grid-area: 1 / 1 / span 1 / span 2;
+      margin: 0 auto;
+    }
   }
 
   @media only screen and (max-width: 1350px) and (min-width: 999px) {
@@ -485,6 +503,16 @@ body {
     }
     div.login {
       grid-area: 1 / 1 / span 1 / span 3;
+    }
+    div.show-div {
+      grid-area: 1 / 1 / span 1 / span 3;
+    }
+    .thumb-nail {
+      grid-area: 2 / 1 / span 1 / span 1;
+    }
+    div.teams-div {
+      grid-area: 2 / 1 / span 1 / span 1;
+      margin: 0 auto;
     }
   }
 
