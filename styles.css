@@ -10,6 +10,7 @@ body {
     height: 120px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 60px 60px;
   }
 
   .thumb-nail {
@@ -150,6 +151,7 @@ body {
     transition: margin-left .5s;
     padding: 16px;
     max-width: 450px;
+    grid-area: 1 / 1 / span 2 / span 1;
   }
 
   .sidenav {
@@ -491,7 +493,7 @@ body {
       display: none;
     }
     #search {
-      grid-area: 2 / 1 / span 1 / span 1;
+      grid-area: 1 / 2 / span 1 / span 1;
     }
     div.show-div {
       grid-area: 1 / 1 / span 1 / span 2;

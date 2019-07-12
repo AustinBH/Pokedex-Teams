@@ -209,7 +209,7 @@ function login(trainerObject) {
   genFilterSelect.addEventListener('change', () => {
     let input = `?generation=${genFilterSelect.value}`
     getPokemon(input)
-
+    genFilterSelect.selectedIndex = 0;
   })
 
   trainerName.textContent = trainerObject.username
@@ -395,6 +395,7 @@ function addPokemonToTeam(pokemonObject) {
     else {
       createPokemonTeam(pokemonObject, team.id)
     }
+    addPokemon.selectedIndex = 0
   })
   return addPokemon
 }
