@@ -323,6 +323,23 @@ function addPokemon(pokemonObject) {
 function pokemonInfo(pokemonObject, htmlElement) {
   htmlElement.textContent = "";
   const name = document.createElement("h2");
+  getSinglePokemon(pokemonObject, htmlElement)
+}
+
+function getSinglePokemon(pokemonObject, htmlElement) {
+  fetch(`http://localhost:3000/pokemon/${pokemonObject.pokedex_number}`,{
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then(json => addPokemonInfoToPage(json, htmlElement))
+}
+
+function addPokemonInfoToPage(pokemonObject, htmlElement) {
+  const name = document.createElement('h4')
   const ul = document.createElement('ul')
   const type = document.createElement("li")
   const height = document.createElement("li");
@@ -354,6 +371,7 @@ function pokemonInfo(pokemonObject, htmlElement) {
   htmlElement.appendChild(showMore)
   htmlElement.appendChild(addPokemonToTeam(pokemonObject))
 }
+
 
 function addPokemonTypes(pokemonObject, htmlElement) {
   const pokemonTypes = pokemonObject.pokemon_type.split(" ").filter(el => el != "")
