@@ -27,6 +27,10 @@ body {
     z-index: 6;
   }
 
+  .show {
+    font-family: 'Raleway', sans-serif;
+  }
+
   img.login {
     grid-area: 1 / 3 / span 2 / span 1;
     margin-left: auto;
@@ -98,6 +102,7 @@ body {
     font-size:30px;
     color:rgb(255,198,3);
     margin-right: 2px;
+    font-family: 'Raleway', sans-serif;
   }
 
   #search{
@@ -109,6 +114,7 @@ body {
   .front-name {
     margin: 0px;
     text-align: center;
+    font-family: 'Raleway', sans-serif;
   }
 
   div img {
@@ -120,16 +126,19 @@ body {
   p {
     font-size: 1.5em;
     color: black;
+    font-family: 'Raleway', sans-serif;
   }
 
   li {
     font-size: 1.05em;
+    font-family: 'Raleway', sans-serif;
     list-style: none;
     padding-right: 20px;
   }
 
   button {
     font-size: .80em;
+    font-family: 'Raleway', sans-serif;
     color: #fff;
     background-color: #e60000;
     border-radius: 20px;
@@ -183,6 +192,7 @@ body {
     color: #f1f1f1;
     display: block;
     transition: 0.3s;
+    font-family: 'Raleway', sans-serif;
   }
   .sidenav span:hover {
     color: rgb(255,198,3);
@@ -235,6 +245,7 @@ body {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    font-family: 'Raleway', sans-serif;
   }
 
   .close:hover,
@@ -259,6 +270,7 @@ body {
 
   .login p {
     color: rgb(255,198,3);
+    font-family: 'Raleway', sans-serif;
   }
 
   .login span {
@@ -272,10 +284,12 @@ body {
 
   .login h2 {
     color: white;
+    font-family: 'Raleway', sans-serif;
   }
 
   form, h2 {
     text-align: center;
+    font-family: 'Raleway', sans-serif;
   }
 
   input.submit {
@@ -288,6 +302,10 @@ body {
     height: 25px;
     width: 100px;
     cursor: pointer;
+  }
+
+  .submit {
+    font-family: 'Raleway', sans-serif;
   }
 
   .logout {
@@ -319,6 +337,7 @@ body {
       font-size: 16px;
       display: inline;
       margin-left: 5px;
+      font-family: 'Raleway', sans-serif;
     }
 
     ul.show {
@@ -343,16 +362,19 @@ body {
     .teams-div h2 {
       color: rgb(255,198,3);
       font-size: 40px;
+      font-family: 'Raleway', sans-serif;
     }
 
     .team-label {
       font-size: 20px;
       padding-right: 0px;
+      font-family: 'Raleway', sans-serif;
     }
 
     ul.show-team-list {
       margin: auto;
       padding: 0px;
+      font-family: 'Raleway', sans-serif;
     }
 
     .show-team-list li {
@@ -360,6 +382,7 @@ body {
       text-align: center;
       font-size: 30px;
       color: white;
+      font-family: 'Raleway', sans-serif;
     }
 
     .team-list-pokemon:hover {
