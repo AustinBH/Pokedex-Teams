@@ -2,8 +2,8 @@
 
 ## Setup
 
-  * At this time you will need to open the index.html file directly to use the application.
-  * Once we host this frontend application, we will provide a link to it directly.
+  * At this time, the repo can be cloned down and you can open the index.html file in your browser
+  * You can also visit the [Site](https://austinbh.github.io/Pokedex-frontend/) where it is currently hosted
 
 ## Usage
 
