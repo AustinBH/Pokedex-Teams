@@ -1,5 +1,5 @@
 const MAIN = document.getElementById("main-wrapper");
-
+const MAIN_URL = 'https://pokedex-yeet.herokuapp.com'
 
 // Waiting for DOM to render login
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // This is our get fetch for our trainer info this can also update trainer info
 function getTrainer(id) {
-  fetch(`http://localhost:3000/trainers/${id}`, {
+  fetch(`${MAIN_URL}/trainers/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ function switchLoginForm(show, hide){
 // This is where we attempt to login by checking if the entered info matches a username
 // **Not case specific**
 function trainerLogin(username) {
-  fetch('http://localhost:3000/trainers', {
+  fetch(`${MAIN_URL}/trainers`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -150,7 +150,7 @@ function trainerLogin(username) {
 
 // This creates a new trainer when a user signs up
 function trainerSignup(username) {
-  fetch('http://localhost:3000/trainers', {
+  fetch(`${MAIN_URL}/trainers`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -270,6 +270,7 @@ function addLogoutButton() {
   const search = document.getElementById("search")
   const spaceHolder = document.getElementById("space-holder")
   const button = document.createElement("button")
+  const generationFilter = document.getElementById("generation-filter")
 
   button.textContent = 'Logout'
   button.className = 'logout'
@@ -279,6 +280,7 @@ function addLogoutButton() {
     header.removeChild(button)
     header.removeChild(spaceHolder);
     header.removeChild(search)
+    header.removeChild(generationFilter)
     localStorage.clear()
     loginPage()
   })
@@ -288,7 +290,7 @@ function addLogoutButton() {
 function getPokemon(search = "") {
   const main = document.querySelector('#main-wrapper')
   main.textContent = ''
-  fetch(`http:localhost:3000/pokemon${search}`, {
+  fetch(`${MAIN_URL}/pokemon${search}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -327,7 +329,7 @@ function pokemonInfo(pokemonObject, htmlElement) {
 }
 
 function getSinglePokemon(pokemonObject, htmlElement) {
-  fetch(`http://localhost:3000/pokemon/${pokemonObject.pokedex_number}`,{
+  fetch(`${MAIN_URL}/pokemon/${pokemonObject.pokedex_number}`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -497,7 +499,7 @@ function showSinglePokemon(pokemonObject) {
 }
 
 function createPokemonTeam(pokemonObject, teamId) {
-  fetch('http://localhost:3000/pokemon_teams', {
+  fetch(`${MAIN_URL}/pokemon_teams`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -540,7 +542,7 @@ function displayPokemonImage(pokemonObject, htmlElement) {
 }
 
 function displayTrainerInfo() {
-  fetch(`http://localhost:3000/trainers/${TRAINER_ID}`, {
+  fetch(`${MAIN_URL}/trainers/${TRAINER_ID}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -672,7 +674,7 @@ function displaySinglePokemon(pokemonObject, teamObject, list) {
 }
 
 function deletePokemonFromTeam(pokemonObject, teamObject, htmlElement) {
-  fetch(`http://localhost:3000/pokemon_teams`, {
+  fetch(`${MAIN_URL}/pokemon_teams`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -687,7 +689,7 @@ function deletePokemonFromTeam(pokemonObject, teamObject, htmlElement) {
 }
 
 function deleteTeam(teamObject, htmlElement) {
-  fetch(`http://localhost:3000/teams/${teamObject.id}`, {
+  fetch(`${MAIN_URL}/teams/${teamObject.id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -700,7 +702,7 @@ function deleteTeam(teamObject, htmlElement) {
 function createNewTeam(htmlElement, trainerObject) {
   const main = document.querySelector('main')
   const list = document.querySelector('ul')
-  fetch('http:localhost:3000/teams', {
+  fetch(`${MAIN_URL}/teams`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
