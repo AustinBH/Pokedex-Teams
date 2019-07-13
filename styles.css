@@ -490,6 +490,7 @@ body {
 
   .pokemon-info {
     text-align: center;
+    font-family: 'Raleway', sans-serif;
   }
 
   @media only screen and (max-width: 670px) {
