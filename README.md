@@ -2,8 +2,8 @@
 
 ## Setup
 
-  * At this time, the repo can be cloned down and you can open the index.html file in your browser
-  * You can also visit the [Site](https://austinbh.github.io/Pokedex-frontend/) where it is currently hosted
+  * This Github Repository can be cloned down onto your local machine and you can use the application by opening the index.html file in your browser.
+  * You can also visit the [Site](https://austinbh.github.io/Pokedex-frontend/) where it is currently hosted.
 
 ## Use this application
 
@@ -23,5 +23,5 @@
 
 ## Contributors
 
-  * Both the front and backends of this project were built by [Noah Fairbairn](https://github.com/NFairbairn) and [Austin Harlow](https://github.com/AustinBH)
+  * Both the front and backends of this project were built by [Noah Fairbairn](https://github.com/NFairbairn) and [Austin Harlow](https://github.com/AustinBH).
   * The data that we used for this project is from the [PokeApi](https://pokeapi.co/) and [The Pokemon Website](https://www.pokemon.com/us/).
