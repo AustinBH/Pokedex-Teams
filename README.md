@@ -8,6 +8,8 @@
 ## Use this application
 
   * This application supports user accounts.
+    - You can create a new account on the landing page
+    - Once you have an account, your team information will persist when you logout
   * As a trainer you can create new teams, add pokemon to your teams, remove pokemon from those teams, and delete teams.
     - Creating Teams
       - If you are viewing the application in a window that is at least 1350 pixels then there is a button in the upper right hand corner of the page which allows you to create a new team.
