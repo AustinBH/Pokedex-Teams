@@ -9,6 +9,18 @@
 
   * This application supports user accounts.
   * As a trainer you can create new teams, add pokemon to your teams, remove pokemon from those teams, and delete teams.
+    - Creating Teams
+      - If you are viewing the application in a window that is at least 1350 pixels then there is a button in the upper right hand corner of the page which allows you to create a new team.
+      - You can also access your teams page by clicking on the hamburger menu and then clicking on "Teams"
+    - Adding Pokemon
+      - You can add pokemon to your teams directly from the main index page.
+      - You can also add pokemon to your teams from a specific pokemon's view page.
+    - Removing Pokemon
+      - You can remove individual pokemon from a specific team page.
+      - There is a delete button to the right of the pokemon's name which will remove that pokemon from that team.
+    - Deleting Teams
+      - You can delete your teams from the main teams view page (The page where you create your teams).
+      - You can also delete teams directly from the menu accessed using the hamburger at the top of the screen.
   * We currently support all 807 pokemon up to the generation 7 games except for Meltan and Melmetal.
   * There are also 3 different ways that you can filter the pokemon displayed on the main page.
     - Name
