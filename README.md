@@ -5,7 +5,7 @@
   * This Github Repository can be cloned down onto your local machine and you can use the application by opening the index.html file in your browser.
   * You can also visit the [Site](https://austinbh.github.io/Pokedex-frontend/) where it is currently hosted.
 
-## Use this application
+## Using the application
 
   * This application supports user accounts.
     - You can create a new account on the landing page
