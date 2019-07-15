@@ -3,12 +3,13 @@
 ## Setup
 
   * This Github Repository can be cloned down onto your local machine and you can use the application by opening the index.html file in your browser.
+    - The fetch routes run to our hosted backend so you do not need to download the [backend repository](https://github.com/AustinBH/Pokedex-backend/tree/master).
   * You can also visit the [Site](https://austinbh.github.io/Pokedex-frontend/) where it is currently hosted.
 
 ## Using the application
 
   * This application supports user accounts.
-    - You can create a new account on the landing page
+    - You can login and create a new account on the landing page
     - Once you have an account, your team information will persist when you logout
     - Reloading the page will require you to login again
   * As a trainer you can create new teams, add pokemon to your teams, remove pokemon from those teams, and delete teams.
