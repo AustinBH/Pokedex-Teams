@@ -7,6 +7,7 @@ body {
 
   header {
     background-color: #4caf50;
+    width: 100%;
     height: 120px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -241,7 +242,7 @@ body {
     width: 60%;
     border-radius: 40px;
   }
-  
+
   .close {
     color: #aaaaaa;
     float: right;
