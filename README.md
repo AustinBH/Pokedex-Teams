@@ -39,4 +39,4 @@
 ## Contributors
 
   * Both the front and backends of this project were built by [Noah Fairbairn](https://github.com/NFairbairn) and [Austin Harlow](https://github.com/AustinBH).
-  * The data that we used for this project is from the [PokeApi](https://pokeapi.co/) and [The Pokemon Website](https://www.pokemon.com/us/).
+  * The data that we used for this project is from the [PokeApi](https://pokeapi.co/) for all of the pokemon information and [The Pokemon Website](https://www.pokemon.com/us/) for all of the pokemon images.
