@@ -1,5 +1,5 @@
 const MAIN = document.getElementById("main-wrapper");
-const MAIN_URL = 'https://pokedex-yeet.herokuapp.com'
+const MAIN_URL = 'http://localhost:3000'
 
 // Waiting for DOM to render login
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // This is our get fetch for our trainer info this can also update trainer info
-function getTrainer(id) {
-  fetch(`${MAIN_URL}/trainers/${id}`, {
+function getTrainer() {
+  fetch(`${MAIN_URL}/trainers/${localStorage.trainerId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ function getTrainer(id) {
 }
 
 function saveTeamInfo(trainerObject) {
-  // Assigning global variable to represent all teams
+  // Assigning global variable to represent all teams on initial load
   TEAMS = trainerObject.teams
 }
 
@@ -91,8 +91,8 @@ function loginPage() {
   })
 
   linkSpan.addEventListener("click", () => {
-        switchLoginForm(form2, form1)
-        signUpLink.className = "hidden"
+    switchLoginForm(form2, form1)
+    signUpLink.className = "hidden"
   })
 
   form1.appendChild(header1)
@@ -124,7 +124,7 @@ function switchLoginForm(show, hide){
 }
 
 // This is where we attempt to login by checking if the entered info matches a username
-// **Not case specific**
+// Now case specific
 function trainerLogin(username) {
   fetch(`${MAIN_URL}/trainers`, {
     method: 'GET',
@@ -136,7 +136,7 @@ function trainerLogin(username) {
   .then(res => res.json())
   .then(json => {
     let user = json.find(el => {
-      return el.username.toLowerCase() === username.toLowerCase()
+      return el.username === username
     })
     if (user) {
         login(user)
@@ -191,7 +191,7 @@ function login(trainerObject) {
   img.style.cursor = 'pointer'
   img.addEventListener('click', () => {
     getPokemon()
-    getTrainer(TRAINER_ID)
+    getTrainer()
   })
 
   genFilter.id = 'generation-filter'
@@ -242,10 +242,9 @@ function login(trainerObject) {
     displayTrainerInfo()
   })
 
-  localStorage.setItem('trainer_id', trainerObject.id)
-  TRAINER_ID = trainerObject.id
+  localStorage.setItem('trainerId', trainerObject.id)
 
-  getTrainer(TRAINER_ID)
+  getTrainer()
   getPokemon()
   addLogoutButton()
 
@@ -512,7 +511,7 @@ function createPokemonTeam(pokemonObject, teamId) {
   })
   .then(() => {
     displayErrorMessage(`${pokemonObject.name} added!`)
-    getTrainer(TRAINER_ID)
+    getTrainer()
   })
 }
 
@@ -542,7 +541,7 @@ function displayPokemonImage(pokemonObject, htmlElement) {
 }
 
 function displayTrainerInfo() {
-  fetch(`${MAIN_URL}/trainers/${TRAINER_ID}`, {
+  fetch(`${MAIN_URL}/trainers/${localStorage.trainerId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -556,32 +555,50 @@ function displayTrainerInfo() {
 }
 
 function addTrainer(trainerObject) {
-  const trainerTeams = trainerObject.teams
   const main = document.querySelector('main')
   const div = document.createElement('div')
   const name = document.createElement('h2')
-  const teams = document.createElement('ul')
+  const teamList = document.createElement('ul')
   const form = document.createElement('form')
   const input1 = document.createElement('input')
   const input2 = document.createElement('input')
   const liLabel = document.createElement("li");
+  const deleteAccount = document.createElement('button')
 
   div.className = "teams-div"
   name.className = "show"
-  teams.className = "show-team-list"
+  teamList.className = "show-team-list"
   form.className = "show"
   liLabel.textContent = "Teams:"
   liLabel.className = "team-label"
 
-  teams.appendChild(liLabel);
+  teamList.appendChild(liLabel);
 
   name.textContent = `${trainerObject.username}'s`
   input1.setAttribute('type', 'text')
   input2.setAttribute('type', 'submit')
   input2.value = 'Create new team'
-  for (team of trainerTeams) {
-    appendTeam(team, teams, main)
+  for (team of TEAMS) {
+    appendTeam(team, teamList, main)
   }
+
+  deleteAccount.id = 'delete-account'
+  deleteAccount.textContent = 'Delete My Account'
+
+  deleteAccount.addEventListener('click', () => {
+    const result = confirm("Are you sure?")
+    if (result === true) {
+      const head = document.querySelector('header')
+      const search = document.querySelector('form')
+      const space = document.getElementById('space-holder')
+      const generationFilter = document.getElementById('generation-filter')
+      head.removeChild(search)
+      head.removeChild(space)
+      head.removeChild(generationFilter)
+      deleteTrainerAccount()
+      loginPage()
+    }
+  })
 
   form.addEventListener('submit', () => {
     event.preventDefault()
@@ -593,9 +610,10 @@ function addTrainer(trainerObject) {
   form.appendChild(input1)
   form.appendChild(input2)
   div.appendChild(name)
-  div.appendChild(teams)
+  div.appendChild(teamList)
   div.appendChild(form)
   main.appendChild(div)
+  main.appendChild(deleteAccount)
 }
 
 function appendTeam(teamObject, list, htmlElement) {
@@ -665,7 +683,7 @@ function displaySinglePokemon(pokemonObject, teamObject, list) {
 
   button.addEventListener('click', () => {
     deletePokemonFromTeam(pokemonObject, teamObject, li)
-    getTrainer(TRAINER_ID)
+    getTrainer()
   })
 
   li.appendChild(pokemonName)
@@ -701,7 +719,7 @@ function deleteTeam(teamObject, htmlElement) {
 
 function createNewTeam(htmlElement, trainerObject) {
   const main = document.querySelector('main')
-  const list = document.querySelector('ul')
+  const list = document.querySelector('#teams')
   fetch(`${MAIN_URL}/teams`, {
     method: 'POST',
     headers: {
@@ -718,7 +736,17 @@ function createNewTeam(htmlElement, trainerObject) {
     getNav(trainerObject)
     htmlElement.value = ''
     appendTeam(json, list, main)
-    getTrainer(TRAINER_ID)
+    getTrainer()
+  })
+}
+
+function deleteTrainerAccount() {
+  fetch(`${MAIN_URL}/trainers/${localStorage.trainerId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
   })
 }
 
@@ -727,9 +755,7 @@ function createNewTeam(htmlElement, trainerObject) {
 function listNavTeams(trainerObject){
   let teamList = document.getElementById("teams");
 
-  let teams = trainerObject.teams
-
-  for(team of teams) {
+  for(team of TEAMS) {
     displayNavTeams(team);
   }
 }
@@ -772,7 +798,7 @@ function displayNavTeams(team){
   deleteFromNav.addEventListener("click", () => {
     deleteTeam(team, h4)
     setTimeout(() => {
-      getTrainer(TRAINER_ID)
+      getTrainer()
     }, 200)
   })
 }
@@ -808,16 +834,6 @@ const closeButton = document.querySelector(".closebtn");
   closeButton.addEventListener("click", () => {
     closeNav();
   })
-
-const hamSpan = document.querySelector("#ham-span");
-  hamSpan.addEventListener("click", () => {
-    openNav();
-  })
-
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("hamburger-main").style.marginLeft = "250px";
-}
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";

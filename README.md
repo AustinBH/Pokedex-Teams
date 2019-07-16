@@ -3,7 +3,9 @@
 ## Setup
 
   * This Github Repository can be cloned down onto your local machine and you can use the application by opening the index.html file in your browser.
-    - The fetch routes run to our hosted backend so you do not need to download the [backend repository](https://github.com/AustinBH/Pokedex-backend/tree/master).
+    - If you download this repository you will also need to download the [backend repository](https://github.com/AustinBH/Pokedex-backend/tree/master).
+        - The CORS origins that are currently allowed through our hosted API do not allow requests outside of the hosted site.
+        - You can change the cors origins in your local version of the backend and then access the application using the index.html page.
   * You can also visit the [Site](https://austinbh.github.io/Pokedex-frontend/) where it is currently hosted.
 
 ## Using the application
