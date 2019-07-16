@@ -350,7 +350,6 @@ body {
       margin-left: auto;
       display: block;
       grid-area: 1 / 2 / span 2 / span 2;
-      z-index: 6;
     }
 
     .teams-div h2 {
@@ -377,6 +376,10 @@ body {
 
     .team-list-pokemon:hover {
       color: rgb(255,198,3);
+    }
+
+    #delete-account {
+      grid-area: 1 / 4 / span 1 / span 1;
     }
 
   /* Styling Type Buttons */
