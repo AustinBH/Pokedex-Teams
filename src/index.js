@@ -1,5 +1,5 @@
 const MAIN = document.getElementById("main-wrapper");
-const MAIN_URL = 'https://pokedex-yeet.herokuapp.com/'
+const MAIN_URL = 'https://pokedex-yeet.herokuapp.com'
 
 // Waiting for DOM to render login
 document.addEventListener('DOMContentLoaded', () => {
@@ -719,7 +719,8 @@ function deleteTeam(teamObject, htmlElement) {
 
 function createNewTeam(htmlElement, trainerObject) {
   const main = document.querySelector('main')
-  const list = document.querySelector('#teams')
+  const list = document.querySelector('.show-team-list')
+  console.log(list)
   fetch(`${MAIN_URL}/teams`, {
     method: 'POST',
     headers: {
