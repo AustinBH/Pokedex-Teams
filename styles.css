@@ -380,6 +380,7 @@ body {
 
     #delete-account {
       grid-area: 1 / 4 / span 1 / span 1;
+      height: 40px;
     }
 
   /* Styling Type Buttons */

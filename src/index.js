@@ -1,5 +1,5 @@
 const MAIN = document.getElementById("main-wrapper");
-const MAIN_URL = 'https://pokedex-yeet.herokuapp.com'
+const MAIN_URL = 'https://pokedex-yeet.herokuapp.com/v1'
 
 // Waiting for DOM to render login
 document.addEventListener('DOMContentLoaded', () => {
