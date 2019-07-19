@@ -348,16 +348,16 @@ body {
       grid-template-rows: auto;
     }
 
-    #evolves-into {
+    .evolves-into {
       grid-area: 1 / 1 / span 1 / span 2;
     }
 
-    #evolves-from {
+    .evolves-from {
       grid-area: 1 / 3 / span 1 / span 2;
     }
 
     .single-pokemon-holder {
-      grid-area: auto;
+      grid-area: inherit / inherit /inherit / span 1;
       margin-left: auto;
       margin-right: auto;
     }
