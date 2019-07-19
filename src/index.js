@@ -1,5 +1,5 @@
 const MAIN = document.getElementById("main-wrapper");
-const MAIN_URL = 'https://pokedex-yeet.herokuapp.com/v1'
+const MAIN_URL = 'https://pokedex-yeet.herokuapp.com'
 
 // Waiting for DOM to render login
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // This is our get fetch for our trainer info this can also update trainer info
 function getTrainer() {
-  fetch(`${MAIN_URL}/trainers/${localStorage.trainerId}`, {
+  fetch(`${MAIN_URL}/v1/trainers/${localStorage.trainerId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ function switchLoginForm(show, hide){
 // This is where we attempt to login by checking if the entered info matches a username
 // Now case specific
 function trainerLogin(username) {
-  fetch(`${MAIN_URL}/trainers`, {
+  fetch(`${MAIN_URL}/v1/trainers`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -150,7 +150,7 @@ function trainerLogin(username) {
 
 // This creates a new trainer when a user signs up
 function trainerSignup(username) {
-  fetch(`${MAIN_URL}/trainers`, {
+  fetch(`${MAIN_URL}/v1/trainers`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -289,7 +289,7 @@ function addLogoutButton() {
 function getPokemon(search = "") {
   const main = document.querySelector('#main-wrapper')
   main.textContent = ''
-  fetch(`${MAIN_URL}/pokemon${search}`, {
+  fetch(`${MAIN_URL}/v2/pokemon${search}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -328,7 +328,7 @@ function pokemonInfo(pokemonObject, htmlElement) {
 }
 
 function getSinglePokemon(pokemonObject, htmlElement) {
-  fetch(`${MAIN_URL}/pokemon/${pokemonObject.pokedex_number}`,{
+  fetch(`${MAIN_URL}/v2/pokemon/${pokemonObject.pokedex_number}`,{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -453,6 +453,7 @@ function showSinglePokemon(pokemonObject) {
   const desc = document.createElement('p')
   const height = document.createElement('p')
   const weight = document.createElement('p')
+  const evolutionTree = document.createElement('div')
   const addToTeam = addPokemonToTeam(pokemonObject)
 
   main.textContent = ''
@@ -483,6 +484,30 @@ function showSinglePokemon(pokemonObject) {
   height.textContent = `Height: ${pokemonObject.height} decimeters`
   weight.textContent = `Weight: ${pokemonObject.weight} hectograms`
 
+  evolutionTree.className = 'evolution-tree'
+
+  const evolvesIntoDiv = document.createElement('div')
+  const evolvesFromDiv = document.createElement('div')
+  const evolvesIntoDivTitle = document.createElement('p')
+  const evolvesFromDivTitle = document.createElement('p')
+
+  evolvesIntoDiv.id = 'evolves-into'
+  evolvesFromDiv.id = 'evolves-from'
+  evolvesIntoDivTitle.textContent = 'Evolves Into'
+  evolvesFromDivTitle.textContent = 'Evolves From'
+  evolvesFromDiv.appendChild(evolvesFromDivTitle)
+  evolvesIntoDiv.appendChild(evolvesIntoDivTitle)
+
+  for (let evolution of pokemonObject.evolution_tree.evolves_into) {
+    const pokemonDiv = document.createElement('div')
+    createEvolutionElement(evolution, pokemonDiv, evolvesIntoDiv, evolutionTree)
+  }
+
+  for (let evolution of pokemonObject.evolution_tree.evolves_from) {
+    const pokemonDiv = document.createElement('div')
+    createEvolutionElement(evolution, pokemonDiv, evolvesFromDiv, evolutionTree)
+  }
+
   addPokemonTypes(pokemonObject, types)
 
   showDiv.appendChild(pokedexEntry)
@@ -494,11 +519,29 @@ function showSinglePokemon(pokemonObject) {
   showDiv.appendChild(descLabel)
   showDiv.appendChild(desc)
   showDiv.appendChild(addToTeam)
+  showDiv.appendChild(evolutionTree)
   main.appendChild(showDiv)
 }
 
+function createEvolutionElement(pokemonObject, htmlElement1, htmlElement2, htmlElement3) {
+  const div = document.createElement('div')
+  const img = document.createElement('img')
+  const title = document.createElement('p')
+
+  div.className = 'single-pokemon-holder'
+  img.className = 'evolution-image'
+  title.textContent = `${pokemonObject.name.charAt(0).toUpperCase()}${pokemonObject.name.slice(1)}`
+  img.src = pokemonObject.img_url
+
+  div.appendChild(title)
+  div.appendChild(img)
+  htmlElement1.appendChild(div)
+  htmlElement2.appendChild(htmlElement1)
+  htmlElement3.appendChild(htmlElement2)
+}
+
 function createPokemonTeam(pokemonObject, teamId) {
-  fetch(`${MAIN_URL}/pokemon_teams`, {
+  fetch(`${MAIN_URL}/v1/pokemon_teams`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -541,7 +584,7 @@ function displayPokemonImage(pokemonObject, htmlElement) {
 }
 
 function displayTrainerInfo() {
-  fetch(`${MAIN_URL}/trainers/${localStorage.trainerId}`, {
+  fetch(`${MAIN_URL}/v1/trainers/${localStorage.trainerId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -692,7 +735,7 @@ function displaySinglePokemon(pokemonObject, teamObject, list) {
 }
 
 function deletePokemonFromTeam(pokemonObject, teamObject, htmlElement) {
-  fetch(`${MAIN_URL}/pokemon_teams`, {
+  fetch(`${MAIN_URL}/v1/pokemon_teams`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -707,7 +750,7 @@ function deletePokemonFromTeam(pokemonObject, teamObject, htmlElement) {
 }
 
 function deleteTeam(teamObject, htmlElement) {
-  fetch(`${MAIN_URL}/teams/${teamObject.id}`, {
+  fetch(`${MAIN_URL}/v1/teams/${teamObject.id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -721,7 +764,7 @@ function createNewTeam(htmlElement, trainerObject) {
   const main = document.querySelector('main')
   const list = document.querySelector('.show-team-list')
   console.log(list)
-  fetch(`${MAIN_URL}/teams`, {
+  fetch(`${MAIN_URL}/v1/teams`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -742,7 +785,7 @@ function createNewTeam(htmlElement, trainerObject) {
 }
 
 function deleteTrainerAccount() {
-  fetch(`${MAIN_URL}/trainers/${localStorage.trainerId}`, {
+  fetch(`${MAIN_URL}/v1/trainers/${localStorage.trainerId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
