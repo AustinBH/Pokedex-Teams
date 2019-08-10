@@ -783,7 +783,6 @@ function deleteTeam(teamObject, htmlElement) {
 function createNewTeam(htmlElement, trainerObject) {
   const main = document.querySelector('main')
   const list = document.querySelector('.show-team-list')
-  console.log(list)
   fetch(`${MAIN_URL}/v1/teams`, {
     method: 'POST',
     headers: {
