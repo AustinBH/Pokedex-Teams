@@ -491,22 +491,33 @@ function showSinglePokemon(pokemonObject) {
   const evolvesIntoDivTitle = document.createElement('p')
   const evolvesFromDivTitle = document.createElement('p')
 
-  evolvesIntoDiv.id = 'evolves-into'
-  evolvesFromDiv.id = 'evolves-from'
+  evolvesIntoDiv.className = 'evolves-into'
+  evolvesFromDiv.className = 'evolves-from'
   evolvesIntoDivTitle.textContent = 'Evolves Into'
   evolvesFromDivTitle.textContent = 'Evolves From'
   evolvesFromDiv.appendChild(evolvesFromDivTitle)
   evolvesIntoDiv.appendChild(evolvesIntoDivTitle)
 
   for (let evolution of pokemonObject.evolution_tree.evolves_into) {
-    const pokemonDiv = document.createElement('div')
-    createEvolutionElement(evolution, pokemonDiv, evolvesIntoDiv, evolutionTree)
+    const pokemonDiv = document.createElement("div");
+    createEvolutionElement(
+      evolution,
+      pokemonDiv,
+      evolvesIntoDiv,
+      evolutionTree
+    );
   }
 
   for (let evolution of pokemonObject.evolution_tree.evolves_from) {
-    const pokemonDiv = document.createElement('div')
-    createEvolutionElement(evolution, pokemonDiv, evolvesFromDiv, evolutionTree)
+    const pokemonDiv = document.createElement("div");
+    createEvolutionElement(
+      evolution,
+      pokemonDiv,
+      evolvesFromDiv,
+      evolutionTree
+    );
   }
+
 
   addPokemonTypes(pokemonObject, types)
 
@@ -535,6 +546,13 @@ function createEvolutionElement(pokemonObject, htmlElement1, htmlElement2, htmlE
 
   div.appendChild(title)
   div.appendChild(img)
+
+  if (pokemonObject.min_level) {
+    const level = document.createElement('p')
+    level.textContent = `At level ${pokemonObject.min_level}`
+    div.appendChild(level)
+  }
+
   htmlElement1.appendChild(div)
   htmlElement2.appendChild(htmlElement1)
   htmlElement3.appendChild(htmlElement2)
@@ -635,9 +653,11 @@ function addTrainer(trainerObject) {
       const search = document.querySelector('form')
       const space = document.getElementById('space-holder')
       const generationFilter = document.getElementById('generation-filter')
+      const logout = document.querySelector('.logout')
       head.removeChild(search)
       head.removeChild(space)
       head.removeChild(generationFilter)
+      head.removeChild(logout)
       deleteTrainerAccount()
       loginPage()
     }
@@ -763,7 +783,6 @@ function deleteTeam(teamObject, htmlElement) {
 function createNewTeam(htmlElement, trainerObject) {
   const main = document.querySelector('main')
   const list = document.querySelector('.show-team-list')
-  console.log(list)
   fetch(`${MAIN_URL}/v1/teams`, {
     method: 'POST',
     headers: {
