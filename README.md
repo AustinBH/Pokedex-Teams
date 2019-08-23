@@ -1,4 +1,4 @@
-# Pokedex App
+# Pokedex Teams
 
 ## Setup
 
