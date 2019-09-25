@@ -900,5 +900,6 @@ const closeButton = document.querySelector(".closebtn");
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
+  document.getElementById('trainer-name').style.display = 'block';
   document.getElementById("hamburger-main").style.marginLeft= "0";
 }

@@ -357,7 +357,7 @@ body {
     }
 
     .single-pokemon-holder {
-      grid-area: inherit / inherit /inherit / span 1;
+      grid-area: auto;
       margin-left: auto;
       margin-right: auto;
     }
@@ -584,8 +584,21 @@ body {
     }
   }
 
-  @media only screen and (min-width: 1350px) {
+  @media only screen and (min-width: 1350px) and (max-width: 1500px){
     main {
       grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+
+  @media only screen and (min-width: 1500px) {
+    main {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+    div.login {
+      grid-area: 1 / 1 / span 1 / span 5;
+    }
+    div#generation-filter {
+      grid-area: 2 / 2 / span 1 / span 1;
+      margin: auto;
     }
   }
