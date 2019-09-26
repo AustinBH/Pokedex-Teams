@@ -111,6 +111,12 @@ body {
     z-index: 1;
   }
 
+  #search .search-button{
+    border-radius: 20px;
+    background-color: rgb(46, 96, 180);
+    color: rgb(255,198,3);
+  }
+
   .front-name {
     margin: 0px;
     text-align: center;
@@ -600,5 +606,8 @@ body {
     div#generation-filter {
       grid-area: 2 / 2 / span 1 / span 1;
       margin: auto;
+    }
+    div.show-div {
+      grid-area: 1 / 2 / span 1 / span 3;
     }
   }

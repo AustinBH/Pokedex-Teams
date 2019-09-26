@@ -220,6 +220,7 @@ function login(trainerObject) {
   typeInput.setAttribute("placeholder", "Search By Name")
   typeInput.setAttribute("type", "text")
   typeSubmit.setAttribute("type", "submit")
+  typeSubmit.className = 'search-button'
   typeSubmit.setAttribute("value", "Search")
   spaceHolder.id = "space-holder"
   spaceHolder.textContent = "Create New Team"
