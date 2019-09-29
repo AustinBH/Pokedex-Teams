@@ -1,5 +1,9 @@
 const MAIN = document.getElementById("main-wrapper");
 const MAIN_URL = 'https://pokedex-yeet.herokuapp.com'
+const HEADERS = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
 
 // Waiting for DOM to render login
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,10 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function getTrainer() {
   fetch(`${MAIN_URL}/v1/trainers/${localStorage.trainerId}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
+    headers: HEADERS
   })
   .then(res => res.json())
   .then(json => {
@@ -128,10 +129,7 @@ function switchLoginForm(show, hide){
 function trainerLogin(username) {
   fetch(`${MAIN_URL}/v1/trainers`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
+    headers: HEADERS
   })
   .then(res => res.json())
   .then(json => {
@@ -152,10 +150,7 @@ function trainerLogin(username) {
 function trainerSignup(username) {
   fetch(`${MAIN_URL}/v1/trainers`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
+    headers: HEADERS,
     body: JSON.stringify({
       username: username
     })
@@ -292,10 +287,7 @@ function getPokemon(search = "") {
   main.textContent = ''
   fetch(`${MAIN_URL}/v2/pokemon${search}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
+    headers: HEADERS
   })
   .then(res => res.json())
   .then(json => {
@@ -331,10 +323,7 @@ function pokemonInfo(pokemonObject, htmlElement) {
 function getSinglePokemon(pokemonObject, htmlElement) {
   fetch(`${MAIN_URL}/v2/pokemon/${pokemonObject.pokedex_number}`,{
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
+    headers: HEADERS
   })
   .then(res => res.json())
   .then(json => addPokemonInfoToPage(json, htmlElement))
@@ -562,13 +551,12 @@ function createEvolutionElement(pokemonObject, htmlElement1, htmlElement2, htmlE
 function createPokemonTeam(pokemonObject, teamId) {
   fetch(`${MAIN_URL}/v1/pokemon_teams`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
+    headers: HEADERS,
     body: JSON.stringify({
-      team_id: teamId,
-      pokemon_id: pokemonObject.id
+      pokemon_team: {
+        team_id: teamId,
+        pokemon_id: pokemonObject.id
+      }
     })
   })
   .then(() => {
@@ -605,10 +593,7 @@ function displayPokemonImage(pokemonObject, htmlElement) {
 function displayTrainerInfo() {
   fetch(`${MAIN_URL}/v1/trainers/${localStorage.trainerId}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
+    headers: HEADERS
   })
   .then(res => res.json())
   .then(json => {
@@ -759,13 +744,12 @@ function displaySinglePokemon(pokemonObject, teamObject, list) {
 function deletePokemonFromTeam(pokemonObject, teamObject, htmlElement) {
   fetch(`${MAIN_URL}/v1/pokemon_teams`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
+    headers: HEADERS,
     body: JSON.stringify({
+      pokemon_team: {
         team_id: teamObject.id,
         pokemon_id: pokemonObject.id
+      }
     })
   })
   .then(htmlElement.parentNode.removeChild(htmlElement))
@@ -774,10 +758,7 @@ function deletePokemonFromTeam(pokemonObject, teamObject, htmlElement) {
 function deleteTeam(teamObject, htmlElement) {
   fetch(`${MAIN_URL}/v1/teams/${teamObject.id}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
+    headers: HEADERS
   })
   .then(htmlElement.parentNode.removeChild(htmlElement))
 }
@@ -787,13 +768,12 @@ function createNewTeam(htmlElement, trainerObject) {
   const list = document.querySelector('.show-team-list')
   fetch(`${MAIN_URL}/v1/teams`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
+    headers: HEADERS,
     body: JSON.stringify({
-      name: htmlElement.value,
-      trainer_id: trainerObject.id
+      team: {
+        name: htmlElement.value,
+        trainer_id: trainerObject.id
+      }
     })
   })
   .then(res => res.json())
@@ -808,10 +788,7 @@ function createNewTeam(htmlElement, trainerObject) {
 function deleteTrainerAccount() {
   fetch(`${MAIN_URL}/v1/trainers/${localStorage.trainerId}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
+    headers: HEADERS
   })
 }
 
