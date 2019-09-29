@@ -640,6 +640,7 @@ function addTrainer(trainerObject) {
   input1.setAttribute('type', 'text')
   input2.setAttribute('type', 'submit')
   input2.value = 'Create new team'
+  input2.className = 'search-button'
   for (team of TEAMS) {
     appendTeam(team, teamList, main)
   }
