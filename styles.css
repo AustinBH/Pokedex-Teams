@@ -111,7 +111,7 @@ body {
     z-index: 1;
   }
 
-  #search .search-button{
+  .search-button{
     border-radius: 20px;
     background-color: rgb(46, 96, 180);
     color: rgb(255,198,3);
