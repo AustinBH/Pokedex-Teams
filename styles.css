@@ -610,4 +610,11 @@ body {
     div.show-div {
       grid-area: 1 / 2 / span 1 / span 3;
     }
+    div.teams-div {
+      grid-area: 1 / 3 / span 1 / span 1;
+      margin: 0 auto;
+    }
+    #delete-account {
+      grid-area: 1 / 5 / span 1 / span 1;
+    }
   }
