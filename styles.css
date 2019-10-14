@@ -112,6 +112,8 @@ body {
   }
 
   .search-button{
+    opacity: 0.8;
+    cursor: pointer;
     border-radius: 20px;
     background-color: rgb(46, 96, 180);
     color: rgb(255,198,3);
@@ -147,6 +149,7 @@ body {
   }
 
   button {
+    opacity: 0.8;
     font-size: .80em;
     color: #fff;
     background-color: #e60000;
@@ -298,6 +301,7 @@ body {
   }
 
   input.submit {
+    opacity: 0.8;
     background-color: rgb(46, 96, 180);
     color: rgb(255,198,3);
     border-radius: 20px;
@@ -501,6 +505,18 @@ body {
 
   .pokemon-info {
     text-align: center;
+  }
+
+  button:hover {
+    opacity: 1;
+  }
+
+  input.submit:hover {
+    opacity: 1;
+  }
+
+  input.search-button:hover {
+    opacity: 1;
   }
 
   @media only screen and (max-width: 670px) {
