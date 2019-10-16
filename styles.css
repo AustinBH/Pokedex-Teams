@@ -594,6 +594,13 @@ body {
     main {
       grid-template-columns: 1fr 1fr 1fr 1fr;
     }
+    div.teams-div {
+      grid-area: 1 / 2 / span 1 / span 2;
+      margin: 0 auto;
+    }
+    #delete-account {
+      grid-area: 1 / 4 / span 1 / span 1;
+    }
   }
 
   @media only screen and (min-width: 1500px) {
